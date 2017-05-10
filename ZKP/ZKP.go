@@ -83,12 +83,12 @@ func main(){
     // and return the commitment, Pc = g^Px * Ph^Pr
     // Pr is a random
     // Px is the commited value
-    Pc := verifier.GetOpeningMsgReply(Ph) // Pc
+    Pc := verifier.GetOpeningMsgReply(Ph)
     // Normally {X1: commitment} -> client
 
     // CLIENT
     // Store the commitment to check later
-    prover.pedersenReceiver.SetCommitment(Pc)
+    prover.PedersenReceiver.SetCommitment(Pc)
 
     // ----------------- Equivalent of ProofRandomData() ----------------------
     // CLIENT
@@ -114,7 +114,7 @@ func main(){
     // message response.
     // In other words, show that Px and Pr produce Pc (Pc was stored in
     // SetCommitment(commitment))
-    success := prover.pedersenReceiver.CheckDecommitment(Pr, Px)
+    success := prover.PedersenReceiver.CheckDecommitment(Pr, Px)
     if ! success{
         // If the decommitment failed then something went wrong.
         log.Fatalf("Commitment failed")

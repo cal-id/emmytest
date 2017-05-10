@@ -1,5 +1,11 @@
 # Notes on ZKP
 
+To make pedersenReceiver public use this command:
+```bash
+grep -r -l "pedersenReceiver" . | xargs sed -i "s/pedersenReceiver/PedersenReceiver/"
+```
+## In detail how ZKPOK works
+
 gRPC sets up a client-server relationship where the client starts every message and the server returns a response
 
 1. "Not client" creates `schnorrServer := dlogproofs.NewSchnorrProtocolServer(protocolType)`
