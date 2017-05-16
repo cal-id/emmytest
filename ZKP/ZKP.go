@@ -4,6 +4,7 @@ import (
     "log"
     "github.com/xlab-si/emmy/common"
     "github.com/xlab-si/emmy/dlogproofs"
+    "github.com/xlab-si/emmy/config"
     "math/big"
 
 )
@@ -23,19 +24,18 @@ func main(){
     // Print the protocol type being used
     log.Println("Using this protocol type: ", protocolType)
 
+    // Load dlog from config -> this is used by the verifier and prover
+    dlog := config.LoadPseudonymsysDLog()
 
     // Create the verifier directly (dlogproofs.NewSchnorrProtocolServer is
     // just a struct containing this verifier and the protocolType)
-    verifier := dlogproofs.NewSchnorrVerifier(protocolType)
+    verifier := dlogproofs.NewSchnorrVerifier(dlog, protocolType)
 
     // Create the prover directly (dlogproofs.NewSchnorrProtocolClient is just
     // a struct that includes the prover and the GRPC connection information
     // alongside the protocolType)
-    prover, err := dlogproofs.NewSchnorrProver(protocolType)
+    prover := dlogproofs.NewSchnorrProver(dlog, protocolType)
     // Prover has: DLog
-    if err != nil {
-        log.Fatalf("error when creating Schnorr prover: %v", err)
-    }
     log.Println("Prover.DLog: ", *prover.DLog)
 
     // IN MY NOTES, an P before a variable means that that variable is used
@@ -44,7 +44,7 @@ func main(){
 
     // --------------------- Vars and their meaning ---------------------------
 
-    // SHARED
+    // SHARED   these are stored under the dlog global variable
     // p                                                                      ?
     // q                                              the order of the subgroup
     // g                                                          the generator
@@ -60,7 +60,7 @@ func main(){
     // r                                             random number to send over
     // s                              secret = the key only known to the client
     // x = g ^ r                                         known as the challenge
-    // t = g ^ s                                          considered public key
+    // b = g ^ s                                          considered public key
 
 
     // -------------------- Equivalent of OpeningMsg() ------------------------
@@ -68,16 +68,10 @@ func main(){
 
     // CLIENT
     // Ph = g^Pa where Pa is a trapdoor (the commitment)
-    // p
-    // g = generator for the group
-    // q is the order of the subgroup
-    Ph, p, q, g := prover.GetOpeningMsg()
-    // Normally {H:Ph, P:p, OrderOfSubgroup:q, G:g} -> server
+    Ph := prover.GetOpeningMsg()
+    // Normally {H:Ph} -> server
 
     // SERVER
-    // store 'received' values in both the pedersen committer and the verifier
-    verifier.SetCommitmentGroup(p, q, g)
-    verifier.SetGroup(p, q, g)
     // Store Ph in the verifer,
     // get the challenge (== committed value)
     // and return the commitment, Pc = g^Px * Ph^Pr
@@ -97,17 +91,18 @@ func main(){
     // Store the secret and store a random number r
     // Return:
     // x = g ^ r
-    // t = g ^ s
-    x, t := prover.GetProofRandomData(s)
-    // Normally {X:x, P:p, OrderOfSubgroup:q, G:g, T:t} -> server
+    x := prover.GetProofRandomData(s, dlog.G)
+    // b = g ^ s
+    b, _ := prover.DLog.Exponentiate(dlog.G, s)
+    // Normally {X:x, A:dlog.G, B:b} -> server
 
     // SERVER
-    verifier.SetProofRandomData(x, t)  // store in verifier
+    verifier.SetProofRandomData(x, dlog.G, b)  // store in verifier
     // This line reveals the committed value, Px from the server to the client
     // It reveals the random value to prove that it committed to this value
     // earlier
     Px, Pr := verifier.GetChallenge()
-    // Normally {X: Px, R:Pr} -> client
+    // Normally {X:Px, R:Pr} -> client
 
     // CLIENT
     // Check that Px is the value that was committed to using Pr in the first
