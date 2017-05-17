@@ -1,5 +1,8 @@
 # Notes on ZKP
 
+See [here](https://blog.cryptographyengineering.com/2017/01/21/zero-knowledge-proofs-an-illustrated-primer-part-2/) (in the comments) for some reference to the trapdoor required in pedersen / schnorr ZKPOK.
+
+
 To make pedersenReceiver public use this command:
 ```bash
 grep -r -l "pedersenReceiver" . | xargs sed -i "s/pedersenReceiver/PedersenReceiver/"

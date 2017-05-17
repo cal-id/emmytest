@@ -45,9 +45,14 @@ func main(){
     // --------------------- Vars and their meaning ---------------------------
 
     // SHARED   these are stored under the dlog global variable
-    // p                                                                      ?
-    // q                                              the order of the subgroup
+    // p                              a prime which is the modulus of the group
+    // q                               another prime: the order of the subgroup
     // g                                                          the generator
+    // p = q * r + 1            for some integer r
+    // The group Zp* contains integers [1, p-1] under addition. This it NOT
+    // a prime order group (order is p-1 because 0 is not included). However,
+    // it does contain a q (prime) order subgroup produced by generator g which
+    // is a member of both groups.
 
     // PEDERSEN COMMITTER / RECEIVER
     // Pa                                            trapdoor created by client
@@ -56,22 +61,24 @@ func main(){
     // Pr                       a random value to be revealed when decommitting
     // Pc = g^Px * Ph^Pr               the commitment to Px before revealing Px
 
+
     // SIGMA ONLY
     // r                                             random number to send over
     // s                              secret = the key only known to the client
     // x = g ^ r                                         known as the challenge
     // b = g ^ s                                          considered public key
+    // z = r + Px * s
 
 
     // -------------------- Equivalent of OpeningMsg() ------------------------
     // Prover should first set up the group
 
-    // CLIENT
+    // CLIENT / PROVER / PEDERSEN RECIEVER
     // Ph = g^Pa where Pa is a trapdoor (the commitment)
     Ph := prover.GetOpeningMsg()
     // Normally {H:Ph} -> server
 
-    // SERVER
+    // SERVER / VERIFIER / PEDERSEN COMMITTER
     // Store Ph in the verifer,
     // get the challenge (== committed value)
     // and return the commitment, Pc = g^Px * Ph^Pr
@@ -80,12 +87,12 @@ func main(){
     Pc := verifier.GetOpeningMsgReply(Ph)
     // Normally {X1: commitment} -> client
 
-    // CLIENT
+    // CLIENT / PROVER / PEDERSEN RECIEVER
     // Store the commitment to check later
     prover.PedersenReceiver.SetCommitment(Pc)
 
     // ----------------- Equivalent of ProofRandomData() ----------------------
-    // CLIENT
+    // CLIENT / PROVER / PEDERSEN RECIEVER
     // Create a secret
     s := big.NewInt(345345345334)
     // Store the secret and store a random number r
@@ -96,7 +103,7 @@ func main(){
     b, _ := prover.DLog.Exponentiate(dlog.G, s)
     // Normally {X:x, A:dlog.G, B:b} -> server
 
-    // SERVER
+    // SERVER / VERIFIER / PEDERSEN COMMITTER
     verifier.SetProofRandomData(x, dlog.G, b)  // store in verifier
     // This line reveals the committed value, Px from the server to the client
     // It reveals the random value to prove that it committed to this value
@@ -104,7 +111,7 @@ func main(){
     Px, Pr := verifier.GetChallenge()
     // Normally {X:Px, R:Pr} -> client
 
-    // CLIENT
+    // CLIENT / PROVER / PEDERSEN RECIEVER
     // Check that Px is the value that was committed to using Pr in the first
     // message response.
     // In other words, show that Px and Pr produce Pc (Pc was stored in
@@ -116,16 +123,18 @@ func main(){
     }
 
     // ---------------------- Equivalent of ProofData() -----------------------
-    // CLIENT
+    // CLIENT / PROVER / PEDERSEN RECIEVER
     // z = r + Px * s
     // Pa = trapdoor, the original Pa from OpeningMsg()
     z, Pa := prover.GetProofData(Px)
     // Normally {Z:z, Trapdoor:Pa} -> server
 
-    // SERVER
-    // Check that the pedersen committer verifies the trapdoor against h
-    // Also check that g^z == t^Px * x
-    // The RHS of that equation is: (g^s)^Pa * g^r
+    // SERVER / VERIFIER / PEDERSEN COMMITTER
+    // Check that the pedersen committer verifies the trapdoor against Ph
+    //     this is as simple as checking that g ^ Pa == Ph (Pa = trapdoor which
+    //     was generated before OpeningMsg())
+    // Also check that g^z == b ^ Px * x
+    //     The RHS of that equation is: (g ^ s) ^ Px * g ^ r
     valid := verifier.Verify(z, Pa)
 
     if ! valid{
