@@ -11,7 +11,7 @@ grep -r -l "pedersenReceiver" . | xargs sed -i "s/pedersenReceiver/PedersenRecei
 To make config file load use this command, viper doesn't load configuration with capital letters
 ```bash
 sed -i "s#\$GOPATH#$GOPATH#" config/config.go
-sed -i 's#"P"#"p"#;s#"Q"#"q"#;s#"G"#"g"#' config/config.go
+sed -Ei "s/\[\"([A-Z])\"\]/\[\"\L\1\"\]/" config/config.go
 ```
 ## In detail how ZKPOK works
 
