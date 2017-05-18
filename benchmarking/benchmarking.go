@@ -14,19 +14,29 @@ import (
     "github.com/xlab-si/emmy/dlogproofs"
     "math/big"
     "errors"
+    "flag"
     emmyDlog "github.com/xlab-si/emmy/dlog"
 )
 
 
 /*
  * Sets the protocol type and then starts everything going
- * TODO: Recieve key size parameters from the cli here
  */
 func main(){
-    // protocolType := common.Sigma
-    // protocolType := common.ZKP
-    protocolType := common.ZKPOK
-    runWithProtocolType(protocolType, 8, 16)
+    cliProtocolTypePtr := flag.String("prot", "ZKPOK", "Protocol type: Sigma, ZKP, ZKPOK")
+    Nptr := flag.Int("N", 8, "N = bit length of q, must be divisible by 8")
+    Lptr := flag.Int("L", 16, "L = bit length of p, must be divisible by 8")
+
+    flag.Parse()
+
+    protocolTypeFlagMap := map[string]common.ProtocolType{
+        "Sigma": common.Sigma,
+        "ZKP": common.ZKP,
+        "ZKPOK": common.ZKPOK,
+    }
+
+    protocolType := protocolTypeFlagMap[*cliProtocolTypePtr]
+    runWithProtocolType(protocolType, *Nptr, *Lptr)
 }
 
 /*
