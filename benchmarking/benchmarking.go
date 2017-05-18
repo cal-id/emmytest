@@ -4,8 +4,18 @@ package main
 /*
  * Go code that runs the emmy server and client for a
  * zero knowledge proof using goroutines rather than
- * separate cli interfaces. Eventually, there will be
- * timings produced for each key size.
+ * separate cli interfaces. This will print the results
+ * in the form "Protocol, N, L, Time, Q, P, G" to standard out.
+ * anything "log.Print..." goes to standard error.
+ * 
+ * Installation:
+ *      from this directory run:
+ *           go install
+ *
+ * Usage:
+ *      assuming that $GOPATH/bin is in $PATH
+ *           benchmarking [-N n] [-L l] [-prot p] >> csvOutputForTests.csv
+ *
  */
 
 import (
@@ -54,7 +64,7 @@ func main(){
  * Runs the server and then the client with a given key size (N, L)
  */
 func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
-    fmt.Println("Starting up, protocol type: ", protocolType,
+    log.Println("Starting up, protocol type: ", protocolType,
                 "N: ", N, "L: ", L)
 
     // Create a channel to be published on after the server is running
@@ -82,7 +92,11 @@ func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
         log.Fatalf("There was an error: ", err)
     }
     elapsed := time.Since(start)
-    fmt.Println("Proof took: ", elapsed)
+    log.Println("Proof took: ", elapsed)
+    // Print to standard output, this can be piped into a csv file
+    fmt.Printf("%v, %v, %v, %v, %v, %v, %v\n",
+               protocolType, N, L, elapsed.Nanoseconds(),
+               (*dlog).OrderOfSubgroup, (*dlog).P, (*dlog).G)
 }
 
 /*
