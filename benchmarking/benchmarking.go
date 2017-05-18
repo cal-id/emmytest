@@ -16,6 +16,8 @@ import (
     "errors"
     "flag"
     emmyDlog "github.com/xlab-si/emmy/dlog"
+    "time"
+    "fmt"
 )
 
 
@@ -24,10 +26,19 @@ import (
  */
 func main(){
     cliProtocolTypePtr := flag.String("prot", "ZKPOK", "Protocol type: Sigma, ZKP, ZKPOK")
-    Nptr := flag.Int("N", 8, "N = bit length of q, must be divisible by 8")
-    Lptr := flag.Int("L", 16, "L = bit length of p, must be divisible by 8")
+    var N, L int
+    flag.IntVar(&N, "N", 8, "N = bit length of q, must be divisible by 8")
+    flag.IntVar(&L, "L", 16, "L = bit length of p, must be divisible by 8")
 
     flag.Parse()
+
+    if N % 8 != 0 || L % 8 != 0 {
+        log.Fatalf("N and L must be multiples of 8.")
+    }
+
+    if N >= L {
+        log.Fatalf("L must be greater than N.")
+    }
 
     protocolTypeFlagMap := map[string]common.ProtocolType{
         "Sigma": common.Sigma,
@@ -36,15 +47,15 @@ func main(){
     }
 
     protocolType := protocolTypeFlagMap[*cliProtocolTypePtr]
-    runWithProtocolType(protocolType, *Nptr, *Lptr)
+    runWithProtocolType(protocolType, N, L)
 }
 
 /*
  * Runs the server and then the client with a given key size (N, L)
- * TODO: Time the client
  */
 func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
-    log.Println("Starting up, using this protocol type: ", protocolType)
+    fmt.Println("Starting up, protocol type: ", protocolType,
+                "N: ", N, "L: ", L)
 
     // Create a channel to be published on after the server is running
     publishWhenServerRunning := make(chan bool)
@@ -65,10 +76,13 @@ func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
     <-publishWhenServerRunning  // wait for the server to start
 
     // Run the client which runs the proof
+    start := time.Now()
     err = runClient(protocolType, dlog)
     if err != nil{
         log.Fatalf("There was an error: ", err)
     }
+    elapsed := time.Since(start)
+    fmt.Println("Proof took: ", elapsed)
 }
 
 /*
