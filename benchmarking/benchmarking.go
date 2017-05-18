@@ -2,7 +2,7 @@ package main
 
 
 /*
- * Go code that runs the emmy server and client for a 
+ * Go code that runs the emmy server and client for a
  * zero knowledge proof using goroutines rather than
  * separate cli interfaces. Eventually, there will be
  * timings produced for each key size.
@@ -13,47 +13,89 @@ import (
     "log"
     "github.com/xlab-si/emmy/dlogproofs"
     "math/big"
-    "github.com/xlab-si/emmy/config"
+    "errors"
+    emmyDlog "github.com/xlab-si/emmy/dlog"
 )
 
 
+/*
+ * Sets the protocol type and then starts everything going
+ * TODO: Recieve key size parameters from the cli here
+ */
 func main(){
-    protocolType := common.Sigma
+    // protocolType := common.Sigma
     // protocolType := common.ZKP
-    // protocolType := common.ZKPOK
-    runWithProtocolType(protocolType)
+    protocolType := common.ZKPOK
+    runWithProtocolType(protocolType, 8, 16)
 }
 
-func runWithProtocolType(protocolType common.ProtocolType) {
+/*
+ * Runs the server and then the client with a given key size (N, L)
+ * TODO: Time the client
+ */
+func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
     log.Println("Starting up, using this protocol type: ", protocolType)
 
+    // Create a channel to be published on after the server is running
     publishWhenServerRunning := make(chan bool)
-    go runServer(protocolType, publishWhenServerRunning)
-    <-publishWhenServerRunning  // wait for the server to start
-    runClient(protocolType)
 
+    // Instead of loading the standard dlog from the config file using:
+    // dlog := config.LoadPseudonymsysDLog()
+    // Generate one of a specific length
+    dlog, err := generate_dlog(N, L)
+    if err != nil{
+        log.Fatalf("There was an error: ", err)
+    }
+    log.Println("Q:", (*dlog).OrderOfSubgroup,
+                "P:", (*dlog).P,
+                "G:", (*dlog).G)
+
+    // Start the server running in the background
+    go runServer(protocolType, dlog, publishWhenServerRunning)
+    <-publishWhenServerRunning  // wait for the server to start
+
+    // Run the client which runs the proof
+    err = runClient(protocolType, dlog)
+    if err != nil{
+        log.Fatalf("There was an error: ", err)
+    }
 }
 
-
-func runClient(protocolType common.ProtocolType){
-    log.Println(protocolType)
-    dlog := config.LoadPseudonymsysDLog()
-
+/*
+ * Runs the client to prove knowledge against the server which should already
+ * be running. It takes a protocolType and a dlog.
+ */
+func runClient(protocolType common.ProtocolType, dlog *emmyDlog.ZpDLog) error {
     schnorrProtocolClient, err := dlogproofs.NewSchnorrProtocolClient(dlog, protocolType)
     if err != nil {
-        log.Fatalf("error when creating Schnorr protocol client: %v", err)
+        return err
     }
-    secret := big.NewInt(345345345334)
+    // Choose a secret which is less than the lowest q (8 bits = 1 byte)
+    secret := big.NewInt(200)
+    // Run the proof
     isProved, err := schnorrProtocolClient.Run(dlog.G, secret)
-    if isProved == true {
-        log.Println("knowledge proved")
-    } else {
-        log.Println("knowledge NOT proved")
+    // Check for errors and raise if necessary
+    if err != nil {
+        return err
     }
+    if isProved != true {
+        return errors.New("knowledge NOT proved")
+    }
+    log.Println("knowledge proved")
+    return nil
 }
 
-func runServer(protocolType common.ProtocolType, channel chan bool){
-    dlog := config.LoadPseudonymsysDLog()
+
+/*
+ * Runs the server to prove knowledge against. This should be run as a
+ * goroutine so that it can run in the background.
+ * It takes:
+ *   - protocolType to use for the proof
+ *   - dlog         to use for the proof
+ *   - channel      to report when the server is running and the client
+ *                  can be run.
+ */
+func runServer(protocolType common.ProtocolType, dlog *emmyDlog.ZpDLog, channel chan bool){
     schnorrServer := dlogproofs.NewSchnorrProtocolServer(dlog, protocolType)
     go func() {
         channel <- true
