@@ -23,8 +23,8 @@ import time
 assert sys.version_info >= (3, )
 
 
-def run_client_server_test(example, expectedClientOutput, expectedServerOutput,
-                           expectedServerError=b"", expectedClientError=b""):
+def run_client_server_test(example, expectedClientError, expectedServerError,
+                           expectedServerOutput=b"", expectedClientOutput=b""):
     """Spawns two emmy processes: one server then one client that are each
     running the given example.
 
@@ -44,19 +44,19 @@ def run_client_server_test(example, expectedClientOutput, expectedServerOutput,
                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     try:
         try:
-            clientError, clientOutput = client.communicate()
-            print(clientError, clientOutput)
+            clientOut, clientError = client.communicate()
+            print(clientError, clientOut)
         except:
             client.kill()
             raise
-        assert clientError == expectedClientError
-        assert expectedClientOutput in clientOutput
+        assert clientOut == expectedClientOutput
+        assert expectedClientError in clientError
     finally:
         server.kill()
-    serverError, serverOutput = server.communicate()
-    print(serverError, serverOutput)
-    assert serverError == expectedServerError
-    assert expectedServerOutput in serverOutput
+    serverOut, serverError = server.communicate()
+    print(serverError, serverOut)
+    assert serverOut == expectedServerOutput
+    assert expectedServerError in serverError
 
 
 def test_schnorr():
@@ -118,11 +118,11 @@ def test_dlog_equality():
     Tests Chaum-Pedersen protocol to prove discrete logarithm equality
     emmy -example=dlog_equality
     """
-    err, out = subprocess.Popen(["emmy", "-example=dlog_equality"],
+    out, err = subprocess.Popen(["emmy", "-example=dlog_equality"],
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE
                                 ).communicate()
-    assert b"true" in out
-    assert b"" == err
+    assert b"true" in err
+    assert b"" == out
 
 
 def test_dlog_equality_blinded_transcript():
@@ -131,13 +131,13 @@ def test_dlog_equality_blinded_transcript():
     emmy -example=dlog_equality_blinded_transcript
     """
     cmd = ["emmy", "-example=dlog_equality_blinded_transcript"]
-    err, out = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+    out, err = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE).communicate()
-    assert err == b""
-    linesOfOutput = out.decode().splitlines()
-    assert "true" in linesOfOutput[0]
-    assert "is the transcript valid" in linesOfOutput[1]
-    assert "true" in linesOfOutput[2]
+    assert out == b""
+    linesOfError = err.decode().splitlines()
+    assert "true" in linesOfError[0]
+    assert "is the transcript valid" in linesOfError[1]
+    assert "true" in linesOfError[2]
 
 
 def test_pedersen():
@@ -147,7 +147,7 @@ def test_pedersen():
     emmy -example=pedersen -client=true
     """
     run_client_server_test("pedersen", b"decommitting", b"",
-                           expectedClientError=b"ok\n")
+                           expectedClientOutput=b"ok\n")
 
 
 def test_pedersen_ec():
@@ -157,7 +157,7 @@ def test_pedersen_ec():
     emmy -example=pedersen_ec -client=true
     """
     run_client_server_test("pedersen_ec", b"decommitting", b"",
-                           expectedClientError=b"ok\n")
+                           expectedClientOutput=b"ok\n")
 
 
 def test_pseudonymsys():
@@ -165,18 +165,18 @@ def test_pseudonymsys():
     Tests pseudonym system
     emmy -example=pseudonymsys
     """
-    err, out = subprocess.Popen(["emmy", "-example=pseudonymsys"],
+    out, err = subprocess.Popen(["emmy", "-example=pseudonymsys"],
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE
                                 ).communicate()
-    assert b"" == err
-    assert b"true" in out
+    assert b"" == out
+    assert b"true" in err
 
 
-def NOT_IMPLEMENTED_test_pedersen_ec():
+def test_pedersen_ec():
     """
     emmy -example=cspaillier -client=false
     """
-    pass  # this isn't implemented because it raises an error when I try it
+    run_client_server_test("cspaillier", b"proved", b"<nil>")
 
 
 def test_split_secret():
@@ -184,9 +184,9 @@ def test_split_secret():
     Tests shamir's secret sharing scheme
     emmy -example=split_secret -client=false
     """
-    err, out = subprocess.Popen(["emmy", "-example=split_secret",
+    out, err = subprocess.Popen(["emmy", "-example=split_secret",
                                  "-client=false"], stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE
                                 ).communicate()
-    assert b"" == err
-    assert b"password" in out
+    assert b"" == out
+    assert b"password" in err
