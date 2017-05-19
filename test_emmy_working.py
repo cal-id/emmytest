@@ -59,6 +59,12 @@ def run_client_server_test(example, expectedClientError, expectedServerError,
     assert expectedServerError in serverError
 
 
+def test_go_tests():
+    """Runs their go tests - necessary to run this before cspaillier as this is
+    currently (commit d80649a) how the pub/sec keys are created."""
+    subprocess.check_output(["go", "test", "github.com/xlab-si/emmy/test"])
+
+
 def test_schnorr():
     """
     Tests schnorr sigma protocol
