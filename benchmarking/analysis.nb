@@ -10,50 +10,56 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       160,          7]
-NotebookDataLength[     29435,        577]
-NotebookOptionsPosition[     28889,        554]
-NotebookOutlinePosition[     29227,        569]
-CellTagsIndexPosition[     29184,        566]
+NotebookDataLength[     79359,       1425]
+NotebookOptionsPosition[     78964,       1407]
+NotebookOutlinePosition[     79303,       1422]
+CellTagsIndexPosition[     79260,       1419]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 
 Cell[CellGroupData[{
-Cell[BoxData[
+Cell[BoxData[{
  RowBox[{
-  RowBox[{"Do", "[", "\[IndentingNewLine]", 
+  RowBox[{"plotDataIn3d", "[", "fileName_", "]"}], " ", ":=", 
+  "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
    RowBox[{
+    RowBox[{"{", 
+     RowBox[{"t1", ",", " ", "headers", ",", " ", "data"}], "}"}], ",", " ", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+     "Private", " ", "local", " ", "variables", " ", "for", " ", "this", " ", 
+      "function"}], " ", "*)"}], "\[IndentingNewLine]", "\t", 
     RowBox[{
      RowBox[{"t1", ":=", 
+      RowBox[{"Import", "[", 
+       RowBox[{"fileName", ",", "\"\<CSV\>\"", ",", 
+        RowBox[{"Path", "\[Rule]", 
+         RowBox[{"NotebookDirectory", "[", "]"}]}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\t", 
+     RowBox[{"(*", " ", 
       RowBox[{
-       RowBox[{"Import", "[", 
-        RowBox[{"fileName", ",", "\"\<CSV\>\"", ",", 
-         RowBox[{"Path", "\[Rule]", 
-          RowBox[{"NotebookDirectory", "[", "]"}]}]}], "]"}], 
-       "\[IndentingNewLine]", 
-       RowBox[{"(*", " ", 
-        RowBox[{
-         RowBox[{"Extract", " ", 
-          RowBox[{"headers", " ", "/", " ", "x"}]}], ",", " ", "y", ",", " ", 
-         
-         RowBox[{"z", " ", "points"}]}], "*)"}], "\[IndentingNewLine]", 
-       RowBox[{"headers", " ", "=", 
-        RowBox[{"t1", "[", 
-         RowBox[{"[", 
-          RowBox[{"1", ",", " ", 
-           RowBox[{"2", ";;", "4"}]}], "]"}], "]"}]}]}]}], ";", 
-     "\[IndentingNewLine]", 
+       RowBox[{"Extract", " ", 
+        RowBox[{"headers", " ", "/", " ", "x"}]}], ",", " ", "y", ",", " ", 
+       RowBox[{"z", " ", "points"}]}], "*)"}], "\[IndentingNewLine]", "\t", 
+     RowBox[{"headers", " ", "=", 
+      RowBox[{"t1", "[", 
+       RowBox[{"[", 
+        RowBox[{"1", ",", " ", 
+         RowBox[{"2", ";;", "4"}]}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\t", 
      RowBox[{"data", " ", "=", 
       RowBox[{"t1", "[", 
        RowBox[{"[", 
         RowBox[{
          RowBox[{"2", ";;"}], " ", ",", " ", 
          RowBox[{"2", ";;", "4"}]}], "]"}], "]"}]}], ";", 
-     "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", "\t", 
      RowBox[{"(*", " ", 
       RowBox[{"Convert", " ", "to", " ", "ms", " ", "from", " ", "ns"}], " ", 
-      "*)"}], "\[IndentingNewLine]", 
+      "*)"}], "\[IndentingNewLine]", "\t", 
      RowBox[{
       RowBox[{"data", "[", 
        RowBox[{"[", 
@@ -63,30 +69,31 @@ Cell[BoxData[
         RowBox[{"data", "[", 
          RowBox[{"[", 
           RowBox[{"All", ",", "3"}], "]"}], "]"}], " ", "/", " ", "1000000"}],
-        "]"}]}], ";", "\[IndentingNewLine]", 
+        "]"}]}], ";", "\[IndentingNewLine]", "\t", 
      RowBox[{
       RowBox[{"headers", "[", 
        RowBox[{"[", "3", "]"}], "]"}], " ", "=", " ", "\"\<Time (ms)\>\""}], 
-     ";", "\[IndentingNewLine]", 
-     RowBox[{"(*", " ", "plot", "*)"}], "\[IndentingNewLine]", 
-     RowBox[{
-      RowBox[{"ListPointPlot3D", "[", 
-       RowBox[{"data", " ", ",", " ", 
-        RowBox[{"ColorFunction", "\[Rule]", " ", "\"\<Rainbow\>\""}], ",", 
-        RowBox[{"AxesLabel", "\[Rule]", "headers"}], ",", " ", 
-        RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], 
-      "\[IndentingNewLine]", 
-      RowBox[{"(*", 
-       RowBox[{"Display", " ", "output"}], " ", "*)"}], "\[IndentingNewLine]",
-       "headers"}], ";", "\[IndentingNewLine]", 
-     RowBox[{"data", " ", "//", " ", "MatrixForm"}], ";"}], ",", " ", 
-    RowBox[{"{", 
-     RowBox[{"fileName", ",", " ", 
-      RowBox[{"{", 
-       RowBox[{
-       "\"\<basic_output1.csv\>\"", ",", " ", "\"\<basic_output2.csv\>\"", 
-        ",", " ", "\"\<basic_output3.csv\>\""}], "}"}]}], "}"}]}], "]"}], 
-  "\[IndentingNewLine]", "\[IndentingNewLine]"}]], "Input",
+     ";", "\[IndentingNewLine]", "\t", 
+     RowBox[{"(*", 
+      RowBox[{"Display", " ", "output"}], " ", "*)"}], "\[IndentingNewLine]", 
+     "\t", "headers", ";", "\[IndentingNewLine]", "\t", 
+     RowBox[{"data", " ", "//", " ", "MatrixForm"}], ";", 
+     "\[IndentingNewLine]", "\t", 
+     RowBox[{"(*", " ", "plot", "*)"}], "\[IndentingNewLine]", "\t", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"data", " ", ",", " ", 
+       RowBox[{"ColorFunction", "\[Rule]", " ", "\"\<Rainbow\>\""}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", "headers"}], ",", " ", 
+       RowBox[{"ImageSize", "\[Rule]", " ", "Medium"}], ",", " ", 
+       RowBox[{"PlotLabel", "\[Rule]", "fileName"}]}], "]"}]}]}], 
+   "\[IndentingNewLine]", "  ", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"plotDataIn3d", "[", "\"\<basic_output1.csv\>\"", "]"}], ",", 
+   RowBox[{"plotDataIn3d", "[", "\"\<basic_output2.csv\>\"", "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"plotDataIn3d", "[", "\"\<basic_output3.csv\>\"", "]"}]}], 
+  "}"}]}], "Input",
  CellChangeTimes->{{3.7040937313627996`*^9, 3.7040937644407253`*^9}, {
    3.704093812532691*^9, 3.704093817443295*^9}, {3.70409388980466*^9, 
    3.704093941650062*^9}, {3.704093972517931*^9, 3.704094014923726*^9}, {
@@ -109,451 +116,1297 @@ Cell[BoxData[
    3.704168641031578*^9}, {3.704168697223155*^9, 3.704168731571967*^9}, {
    3.704168833435392*^9, 3.7041688742787447`*^9}, {3.704168951460794*^9, 
    3.704169084348394*^9}, {3.704169833983968*^9, 3.7041699015042467`*^9}, {
-   3.704169934790036*^9, 3.704169937320312*^9}}],
+   3.704169934790036*^9, 3.704169937320312*^9}, {3.704170147539112*^9, 
+   3.704170173953722*^9}, {3.7041703117398453`*^9, 3.704170490299884*^9}, 
+   3.7041706245429373`*^9, {3.704170681043797*^9, 3.70417071724746*^9}, {
+   3.704170757432844*^9, 3.704170758705058*^9}, {3.704171137776767*^9, 
+   3.704171221673704*^9}}],
 
 Cell[BoxData[
- TemplateBox[{
-  "Do","iterb",
-   "\"Iterator \\!\\(\\*RowBox[{\\\"{\\\", RowBox[{\\\"fileName\\\", \
-\\\",\\\", \\\"\\\\\\\"basic_output1.csv\\\\\\\"\\\", \\\",\\\", \
-\\\"\\\\\\\"basic_output2.csv\\\\\\\"\\\", \\\",\\\", \
-\\\"\\\\\\\"basic_output3.csv\\\\\\\"\\\"}], \\\"}\\\"}]\\) does not have \
-appropriate bounds.\"",2,1,1,24275647105322320078,"Local"},
-  "MessageTemplate"]], "Message", "MSG",
- CellChangeTimes->{3.704169906183341*^9}],
-
-Cell[BoxData[
- RowBox[{"Do", "[", 
+ RowBox[{"{", 
   RowBox[{
-   RowBox[{
-    RowBox[{"t1", ":=", 
-     RowBox[{
-      RowBox[{"Import", "[", 
-       RowBox[{"fileName", ",", "\<\"CSV\"\>", ",", 
-        RowBox[{"Path", "\[Rule]", 
-         RowBox[{"NotebookDirectory", "[", "]"}]}]}], "]"}], " ", 
-      RowBox[{"(", 
-       RowBox[{"headers", "=", 
-        RowBox[{"t1", "\[LeftDoubleBracket]", 
-         RowBox[{"1", ",", 
-          RowBox[{"2", ";;", "4"}]}], "\[RightDoubleBracket]"}]}], ")"}]}]}], 
-    ";", 
-    RowBox[{"data", "=", 
-     RowBox[{"t1", "\[LeftDoubleBracket]", 
-      RowBox[{
-       RowBox[{"2", ";;", "All"}], ",", 
-       RowBox[{"2", ";;", "4"}]}], "\[RightDoubleBracket]"}]}], ";", 
-    RowBox[{
-     RowBox[{"data", "\[LeftDoubleBracket]", 
-      RowBox[{"All", ",", "3"}], "\[RightDoubleBracket]"}], "=", 
-     RowBox[{"N", "[", 
-      FractionBox[
-       RowBox[{"data", "\[LeftDoubleBracket]", 
-        RowBox[{"All", ",", "3"}], "\[RightDoubleBracket]"}], "1000000"], 
-      "]"}]}], ";", 
-    RowBox[{
-     RowBox[{
-     "headers", "\[LeftDoubleBracket]", "3", "\[RightDoubleBracket]"}], 
-     "=", "\<\"Time (ms)\"\>"}], ";", 
-    RowBox[{
-     RowBox[{"ListPointPlot3D", "[", 
-      RowBox[{"data", ",", 
-       RowBox[{"ColorFunction", "\[Rule]", "\<\"Rainbow\"\>"}], ",", 
-       RowBox[{"AxesLabel", "\[Rule]", "headers"}], ",", 
-       RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], " ", "headers"}], 
-    ";", 
-    TagBox["data",
-     Function[BoxForm`e$, 
-      MatrixForm[BoxForm`e$]]], ";"}], ",", 
-   RowBox[{"{", 
-    RowBox[{
-    "fileName", ",", "\<\"basic_output1.csv\"\>", 
-     ",", "\<\"basic_output2.csv\"\>", ",", "\<\"basic_output3.csv\"\>"}], 
-    "}"}]}], "]"}]], "Output",
- CellChangeTimes->{
-  3.7041683932234707`*^9, {3.704168447598407*^9, 3.704168571574767*^9}, {
-   3.704168636219293*^9, 3.70416864442257*^9}, {3.70416870589102*^9, 
-   3.704168732606473*^9}, {3.704168837456017*^9, 3.704168875319063*^9}, {
-   3.704168954866637*^9, 3.704168996067127*^9}, {3.7041690800319233`*^9, 
-   3.704169085321846*^9}, 3.704169714715839*^9, 3.7041699066729813`*^9}]
+   Graphics3DBox[
+    {RGBColor[0.3315753, 0.4561011, 0.6388182], 
+     {RGBColor[0.33377724269607534`, 0.11633131100876068`, 0.644995883604173],
+       Point3DBox[{16., 128., 10.496795}]}, 
+     {RGBColor[0.471412, 0.108766, 0.527016], 
+      Point3DBox[{32., 128., 6.450243}]}, 
+     {RGBColor[0.2921526248126755, 0.15136519673547547`, 0.6972754834040756], 
+      Point3DBox[{48., 128., 12.642154}]}, 
+     {RGBColor[0.3076405876944839, 0.12369007695764225`, 0.6704020759527007], 
+      Point3DBox[{64., 128., 11.431896}]}, 
+     {RGBColor[
+      0.29482938524896196`, 0.14658214900633837`, 0.6926309943642331], 
+      Point3DBox[{80., 128., 12.432987}]}, 
+     {RGBColor[0.2961137675101574, 0.14428711297155694`, 0.6904024425468108], 
+      Point3DBox[{96., 128., 12.332623}]}, 
+     {RGBColor[0.29445145713791, 0.14725746091279052`, 0.6932867433606075], 
+      Point3DBox[{112., 128., 12.462519}]}, 
+     {RGBColor[0.4626094069628241, 0.10924984837750491`, 0.5345615424362586], 
+      Point3DBox[{16., 256., 6.709045}]}, 
+     {RGBColor[
+      0.42589338808041405`, 0.11126800212943544`, 0.5660343456656783], 
+      Point3DBox[{32., 256., 7.78852}]}, 
+     {RGBColor[0.4176062937645441, 0.11172351530856683`, 0.5731380049589785], 
+      Point3DBox[{48., 256., 8.032166}]}, 
+     {RGBColor[
+      0.43540807409919874`, 0.11074501244069088`, 0.5578784003869165], 
+      Point3DBox[{64., 256., 7.508782}]}, 
+     {RGBColor[0.4048035857486196, 0.11242723630021245`, 0.5841124276347972], 
+      Point3DBox[{80., 256., 8.408574}]}, 
+     {RGBColor[
+      0.39782387727661084`, 0.11281088695921443`, 0.5900954017704676], 
+      Point3DBox[{96., 256., 8.613782}]}, 
+     {RGBColor[
+      0.37858012225933757`, 0.11386865023452279`, 0.6065910604363355], 
+      Point3DBox[{112., 256., 9.179561}]}, 
+     {RGBColor[0.36355780382146874`, 0.1146943756056524, 0.6194681230001975], 
+      Point3DBox[{128., 256., 9.621227}]}, 
+     {RGBColor[0.3463335276296654, 0.11564113504959171`, 0.6342326936659325], 
+      Point3DBox[{144., 256., 10.127632}]}, 
+     {RGBColor[0.3327248511721951, 0.11638915736484905`, 0.6458979887985699], 
+      Point3DBox[{160., 256., 10.527736}]}, 
+     {RGBColor[
+      0.31585665548404396`, 0.11731634428359881`, 0.6603573288873958], 
+      Point3DBox[{176., 256., 11.023672}]}, 
+     {RGBColor[0.3291606448508928, 0.11658506957371427`, 0.6489532101333955], 
+      Point3DBox[{192., 256., 10.632526}]}, 
+     {RGBColor[0.3051297562805426, 0.1281766295567828, 0.6747586589419206], 
+      Point3DBox[{208., 256., 11.628097}]}, 
+     {RGBColor[
+      0.30273561010690253`, 0.13245467971914188`, 0.6789127795395333], 
+      Point3DBox[{224., 256., 11.81518}]}, 
+     {RGBColor[0.2910228204213635, 0.15338402077926286`, 0.6992358247336472], 
+      Point3DBox[{240., 256., 12.730439}]}, 
+     {RGBColor[0.4359288107990665, 0.11071638932858355`, 0.5574320272727245], 
+      Point3DBox[{16., 384., 7.493472}]}, 
+     {RGBColor[
+      0.33233513196206543`, 0.11641057889447189`, 0.6462320543206085], 
+      Point3DBox[{32., 384., 10.539194}]}, 
+     {RGBColor[0.3789804874908296, 0.11384664352958385`, 0.6062478691935429], 
+      Point3DBox[{48., 384., 9.16779}]}, 
+     {RGBColor[0.3640378951682115, 0.11466798662933661`, 0.6190565908965515], 
+      Point3DBox[{64., 384., 9.607112}]}, 
+     {RGBColor[0.3410456182073902, 0.11593179331171462`, 0.6387654654044825], 
+      Point3DBox[{80., 384., 10.2831}]}, 
+     {RGBColor[0.3192774296261599, 0.11712831605015857`, 0.6574250569596602], 
+      Point3DBox[{96., 384., 10.923099}]}, 
+     {RGBColor[0.2928384417366694, 0.1501397246923129, 0.696085511696616], 
+      Point3DBox[{112., 384., 12.588563}]}, 
+     {RGBColor[
+      0.29453939977569776`, 0.14710031803654985`, 0.6931341527096836], 
+      Point3DBox[{128., 384., 12.455647}]}, 
+     {RGBColor[0.25813932516832777`, 0.212142856707937, 0.7562924933932894], 
+      Point3DBox[{144., 384., 15.300016}]}, 
+     {RGBColor[0.28095901918054905`, 0.1713668185742513, 0.7166976841994726], 
+      Point3DBox[{160., 384., 13.516843}]}, 
+     {RGBColor[
+      0.25391493043331204`, 0.21969134007999677`, 0.7636223069921367], 
+      Point3DBox[{176., 384., 15.630118}]}, 
+     {RGBColor[
+      0.26033018717414785`, 0.20822805081057838`, 0.7524910943454332], 
+      Point3DBox[{192., 384., 15.128818}]}, 
+     {RGBColor[0.24870934541147338`, 0.26663845754796545`, 0.783402826887595],
+       Point3DBox[{208., 384., 17.310687}]}, 
+     {RGBColor[
+      0.24876736668368835`, 0.26545275689242415`, 0.7829932218413265], 
+      Point3DBox[{224., 384., 17.269541}]}, 
+     {RGBColor[0.2473380686389957, 0.29466134822211176`, 0.7930834468463678], 
+      Point3DBox[{240., 384., 18.283133}]}, 
+     {RGBColor[0.24508678517963525`, 0.3406677209138794, 0.8089765327841993], 
+      Point3DBox[{256., 384., 19.879639}]}, 
+     {RGBColor[0.40394445522595734`, 0.1124744597612653, 0.5848488703840706], 
+      Point3DBox[{16., 512., 8.433833}]}, 
+     {RGBColor[
+      0.31119233761339354`, 0.11757272585484153`, 0.6643555608038952], 
+      Point3DBox[{32., 512., 11.160806}]}, 
+     {RGBColor[
+      0.30891560237551907`, 0.12141177965764088`, 0.6681897779706215], 
+      Point3DBox[{48., 512., 11.332264}]}, 
+     {RGBColor[0.2991037404114986, 0.1389443923821186, 0.6852144936435571], 
+      Point3DBox[{64., 512., 12.098981}]}, 
+     {RGBColor[0.2737026126086372, 0.1843331410381433, 0.7292883891183788], 
+      Point3DBox[{80., 512., 14.083872}]}, 
+     {RGBColor[0.2737019471521231, 0.18433433012859213`, 0.7292895437624196], 
+      Point3DBox[{96., 512., 14.083924}]}, 
+     {RGBColor[0.24935785785461018`, 0.253385703866438, 0.7788246099830678], 
+      Point3DBox[{112., 512., 16.850792}]}, 
+     {RGBColor[0.2480406538422578, 0.3837786630162261, 0.8136483470269574], 
+      Point3DBox[{128., 512., 21.440729}]}, 
+     {RGBColor[0.24593829733855305`, 0.3232665422342866, 0.8029652258283737], 
+      Point3DBox[{144., 512., 19.275786}]}, 
+     {RGBColor[0.24567749633107686`, 0.3285961724496425, 0.8048063679587698], 
+      Point3DBox[{160., 512., 19.460734}]}, 
+     {RGBColor[0.2527158057403548, 0.41038091786438513`, 0.8107733046542733], 
+      Point3DBox[{176., 512., 22.440674}]}, 
+     {RGBColor[0.2509247874464408, 0.4001897783825196, 0.8118747134635467], 
+      Point3DBox[{192., 512., 22.057602}]}, 
+     {RGBColor[0.2826796198603918, 0.5278161154361186, 0.776374725625454], 
+      Point3DBox[{224., 512., 27.269516}]}, 
+     {RGBColor[0.29669113744167686`, 0.5626401779403899, 0.7542422525819502], 
+      Point3DBox[{240., 512., 28.929356}]}, 
+     {RGBColor[0.294621656284362, 0.5574967135900326, 0.7575111872753262], 
+      Point3DBox[{256., 512., 28.6842}]}, 
+     {RGBColor[
+      0.38354919524630515`, 0.11359551731876788`, 0.6023315938298843], 
+      Point3DBox[{16., 640., 9.033467}]}, 
+     {RGBColor[0.2957258191596718, 0.14498032983611395`, 0.6910755778178758], 
+      Point3DBox[{32., 640., 12.362938}]}, 
+     {RGBColor[0.26354417577317185`, 0.20248504121523297`, 0.746914452289615],
+       Point3DBox[{48., 640., 14.877671}]}, 
+     {RGBColor[0.2604695107331694, 0.20797909643141188`, 0.7522493518517475], 
+      Point3DBox[{64., 640., 15.117931}]}, 
+     {RGBColor[0.2476116496685903, 0.28907055033453566`, 0.7911520832962874], 
+      Point3DBox[{80., 640., 18.089122}]}, 
+     {RGBColor[0.2469901652166202, 0.3017709702663727, 0.7955394942920548], 
+      Point3DBox[{96., 640., 18.52985}]}, 
+     {RGBColor[0.2515686239998825, 0.4038532965843962, 0.8114787782270935], 
+      Point3DBox[{112., 640., 22.195309}]}, 
+     {RGBColor[0.2517451721208532, 0.4048578795817824, 0.8113702077806839], 
+      Point3DBox[{128., 640., 22.23307}]}, 
+     {RGBColor[0.2658052118158545, 0.4848614318286949, 0.8027238128044685], 
+      Point3DBox[{144., 640., 25.240302}]}, 
+     {RGBColor[0.2827402888265914, 0.5279669013776661, 0.7762788934465912], 
+      Point3DBox[{160., 640., 27.276703}]}, 
+     {RGBColor[0.30480769460775686`, 0.5828129745294328, 0.7414214084697988], 
+      Point3DBox[{176., 640., 29.890864}]}, 
+     {RGBColor[0.3083025322671193, 0.5886410330389014, 0.7355606855579944], 
+      Point3DBox[{192., 640., 30.228466}]}, 
+     {RGBColor[0.35572332813900587`, 0.6496403024341193, 0.6538847288991233], 
+      Point3DBox[{208., 640., 34.325956}]}, 
+     {RGBColor[0.33682058316063407`, 0.6253249443292084, 0.6864421702326309], 
+      Point3DBox[{224., 640., 32.692626}]}, 
+     {RGBColor[0.3918228700127391, 0.6765858631078565, 0.5980776065841192], 
+      Point3DBox[{240., 640., 36.867304}]}, 
+     {RGBColor[0.3917508369914166, 0.676537998254583, 0.5981870352552903], 
+      Point3DBox[{256., 640., 36.862408}]}, 
+     {RGBColor[0.34491107632168577`, 0.1157193223240163, 0.6354520124124134], 
+      Point3DBox[{16., 768., 10.169453}]}, 
+     {RGBColor[0.2559538252063425, 0.21604808128033282`, 0.7600845886747405], 
+      Point3DBox[{32., 768., 15.470795}]}, 
+     {RGBColor[
+      0.24804269444637814`, 0.28026188316679473`, 0.7881090938993052], 
+      Point3DBox[{48., 768., 17.783445}]}, 
+     {RGBColor[0.24780826007837786`, 0.2850526947641243, 0.7897640989773722], 
+      Point3DBox[{64., 768., 17.949695}]}, 
+     {RGBColor[
+      0.26292301850642535`, 0.46846135700539315`, 0.8044962531596682], 
+      Point3DBox[{80., 768., 24.623844}]}, 
+     {RGBColor[0.2584826095456896, 0.44319482163322177`, 0.8072269374652109], 
+      Point3DBox[{96., 768., 23.674107}]}, 
+     {RGBColor[0.293166808228196, 0.5538808511862475, 0.7598092527916908], 
+      Point3DBox[{112., 768., 28.511855}]}, 
+     {RGBColor[0.36390571931268656`, 0.6580353386742268, 0.6404878324486449], 
+      Point3DBox[{144., 768., 34.969808}]}, 
+     {RGBColor[0.35752016116270413`, 0.6519516407331835, 0.6507899251644224], 
+      Point3DBox[{160., 768., 34.481215}]}, 
+     {RGBColor[0.42522196020989217`, 0.6987790534308977, 0.5473395146438029], 
+      Point3DBox[{176., 768., 39.137401}]}, 
+     {RGBColor[0.43397821526856073`, 0.703238263521433, 0.5353897603572346], 
+      Point3DBox[{192., 768., 39.684743}]}, 
+     {RGBColor[0.5285779889687512, 0.7321399134685022, 0.4274741744975204], 
+      Point3DBox[{208., 768., 44.924366}]}, 
+     {RGBColor[0.5321269347426261, 0.7326595598147033, 0.4243824331476841], 
+      Point3DBox[{224., 768., 45.101917}]}, 
+     {RGBColor[0.6559867349600851, 0.7431586401953031, 0.3290957915218334], 
+      Point3DBox[{240., 768., 51.220235}]}, 
+     {RGBColor[0.6411663726486025, 0.7433301471554215, 0.33813848458056406`], 
+      Point3DBox[{256., 768., 50.502789}]}, 
+     {RGBColor[
+      0.30799248621804165`, 0.12306127678143945`, 0.6697914913020743], 
+      Point3DBox[{16., 896., 11.404398}]}, 
+     {RGBColor[0.24775031354313434`, 0.2862368681233367, 0.7901731764129993], 
+      Point3DBox[{32., 896., 17.990788}]}, 
+     {RGBColor[0.2559123595277825, 0.428569746878393, 0.8088075444424693], 
+      Point3DBox[{48., 896., 23.124369}]}, 
+     {RGBColor[
+      0.24625960819583803`, 0.37364426926496686`, 0.8147436230335457], 
+      Point3DBox[{64., 896., 21.05979}]}, 
+     {RGBColor[0.29996658629750333`, 0.5707809403541059, 0.749068381651382], 
+      Point3DBox[{80., 896., 29.317374}]}, 
+     {RGBColor[0.2959938199765479, 0.5609070732391972, 0.7553437292714091], 
+      Point3DBox[{96., 896., 28.84675}]}, 
+     {RGBColor[0.398104028828525, 0.6807595981474974, 0.5885356097331319], 
+      Point3DBox[{112., 896., 37.294227}]}, 
+     {RGBColor[0.4035055491069676, 0.6843488266823352, 0.5803299121860632], 
+      Point3DBox[{128., 896., 37.661362}]}, 
+     {RGBColor[0.48455655642077894`, 0.7202264132609953, 0.4750897264467845], 
+      Point3DBox[{160., 896., 42.53786}]}, 
+     {RGBColor[0.6383980717673008, 0.7433621830030522, 0.33982757251496837`], 
+      Point3DBox[{176., 896., 50.368777}]}, 
+     {RGBColor[0.6209503933633033, 0.7435640942803409, 0.3504733311731459], 
+      Point3DBox[{192., 896., 49.524144}]}, 
+     {RGBColor[0.7614075633870684, 0.7290935655832799, 0.275023639729939], 
+      Point3DBox[{208., 896., 56.563709}]}, 
+     {RGBColor[0.7548117275611763, 0.7306729083373139, 0.2778486685408455], 
+      Point3DBox[{224., 896., 56.216313}]}, 
+     {RGBColor[0.8609544306352772, 0.6726396577959237, 0.2374638944453547], 
+      Point3DBox[{240., 896., 62.848848}]}, 
+     {RGBColor[0.8713974981845257, 0.6522789159021353, 0.23235399934268638`], 
+      Point3DBox[{256., 896., 64.014991}]}, 
+     {RGBColor[0.277561799689813, 0.1774372396512634, 0.7225922530509731], 
+      Point3DBox[{16., 1024., 13.782308}]}, 
+     {RGBColor[0.2445107675988076, 0.3524389971564972, 0.8130429673665405], 
+      Point3DBox[{32., 1024., 20.288124}]}, 
+     {RGBColor[0.29868891660944125`, 0.5676054350015439, 0.7510865777365303], 
+      Point3DBox[{48., 1024., 29.166018}]}, 
+     {RGBColor[0.2736889889354229, 0.5054709061133155, 0.7905762491532655], 
+      Point3DBox[{64., 1024., 26.204463}]}, 
+     {RGBColor[0.3744841716198805, 0.6650645602485553, 0.6244176196799627], 
+      Point3DBox[{80., 1024., 35.688813}]}, 
+     {RGBColor[0.36046644930814564`, 0.6557415692022304, 0.6457153392481136], 
+      Point3DBox[{96., 1024., 34.735795}]}, 
+     {RGBColor[0.568499276468691, 0.7379852975647324, 0.3926958760487646], 
+      Point3DBox[{112., 1024., 46.921597}]}, 
+     {RGBColor[0.5242939528277142, 0.7315126331803468, 0.4312063058191484], 
+      Point3DBox[{128., 1024., 44.710039}]}, 
+     {RGBColor[0.7057327138377814, 0.7424246539454908, 0.2988694506584346], 
+      Point3DBox[{144., 1024., 53.631371}]}, 
+     {RGBColor[0.716028886546123, 0.7399592824307286, 0.2944595494251515], 
+      Point3DBox[{160., 1024., 54.17366}]}, 
+     {RGBColor[0.8665065992369396, 0.6637484404060408, 0.2349652088442748], 
+      Point3DBox[{176., 1024., 63.400146}]}, 
+     {RGBColor[0.8573690216461844, 0.6752592944522962, 0.23872543975400334`], 
+      Point3DBox[{192., 1024., 62.603742}]}, 
+     {RGBColor[0.9027862705515556, 0.4586398511068243, 0.19290401626506018`], 
+      Point3DBox[{208., 1024., 72.281529}]}, 
+     {RGBColor[0.9028334548251156, 0.4538370298175977, 0.19198909423746738`], 
+      Point3DBox[{224., 1024., 72.45632}]}, 
+     {RGBColor[0.8610220821942113, 0.1597252861888392, 0.13713375329923233`], 
+      Point3DBox[{240., 1024., 81.049162}]}, 
+     {RGBColor[0.857359, 0.131106, 0.132128], 
+      Point3DBox[{256., 1024., 81.881504}]}},
+    Axes->True,
+    AxesLabel->{
+      FormBox["\" N\"", TraditionalForm], 
+      FormBox["\" L\"", TraditionalForm], 
+      FormBox["\"Time (ms)\"", TraditionalForm]},
+    BoxRatios->{1, 1, 0.4},
+    FaceGridsStyle->Automatic,
+    ImageSize->Medium,
+    PlotLabel->FormBox["\"basic_output1.csv\"", TraditionalForm],
+    PlotRange->{{16., 256.}, {128., 1024.}, Automatic},
+    PlotRangePadding->{{
+       Scaled[0.02], 
+       Scaled[0.02]}, {
+       Scaled[0.02], 
+       Scaled[0.02]}, {Automatic, Automatic}},
+    Ticks->{Automatic, Automatic, Automatic},
+    ImageCache->GraphicsData["CompressedBitmap", "\<\
+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
+d9T/AkyoKAk=\
+\>"]], ",", 
+   Graphics3DBox[
+    {RGBColor[0.3315753, 0.4561011, 0.6388182], 
+     {RGBColor[0.2999320387415895, 0.13746432326831862`, 0.6837773002123945], 
+      Point3DBox[{16., 128., 12.38606}]}, 
+     {RGBColor[0.310054810923814, 0.11937615152070728`, 0.6662131193406878], 
+      Point3DBox[{32., 128., 11.60898}]}, 
+     {RGBColor[0.2980662274227292, 0.1407983028320834, 0.687014698712233], 
+      Point3DBox[{48., 128., 12.52929}]}, 
+     {RGBColor[0.30401642386283145`, 0.13016602017243908`, 0.6766904194916], 
+      Point3DBox[{64., 128., 12.07252}]}, 
+     {RGBColor[0.30733956890838915`, 0.1242279611858085, 0.670924378372391], 
+      Point3DBox[{80., 128., 11.817417}]}, 
+     {RGBColor[0.3032823183607505, 0.13147777807466907`, 0.6779641774686992], 
+      Point3DBox[{96., 128., 12.128874}]}, 
+     {RGBColor[0.2948075383878237, 0.1466211867095783, 0.6926689011958405], 
+      Point3DBox[{112., 128., 12.779445}]}, 
+     {RGBColor[0.471412, 0.108766, 0.527016], 
+      Point3DBox[{16., 256., 6.900398}]}, 
+     {RGBColor[0.4117710461079348, 0.11204425887799754`, 0.5781399525252322], 
+      Point3DBox[{32., 256., 8.622997}]}, 
+     {RGBColor[0.4393139927590753, 0.11053031747543848`, 0.5545302648004816], 
+      Point3DBox[{48., 256., 7.827479}]}, 
+     {RGBColor[0.4460635758241975, 0.11015931602153714`, 0.5487445531096374], 
+      Point3DBox[{64., 256., 7.632532}]}, 
+     {RGBColor[
+      0.36984705963651254`, 0.11434867676339415`, 0.6140770017198566], 
+      Point3DBox[{80., 256., 9.83388}]}, 
+     {RGBColor[0.3699606565733039, 0.11434243272901429`, 0.6139796269459044], 
+      Point3DBox[{96., 256., 9.830599}]}, 
+     {RGBColor[0.3816728435207953, 0.11369865394387167`, 0.6039399939354428], 
+      Point3DBox[{112., 256., 9.492318}]}, 
+     {RGBColor[0.39332367912052857`, 0.11305824743209728`, 0.593952951019295],
+       Point3DBox[{128., 256., 9.155809}]}, 
+     {RGBColor[
+      0.34084525272062327`, 0.11594280671597752`, 0.6389372177820805], 
+      Point3DBox[{144., 256., 10.671534}]}, 
+     {RGBColor[
+      0.36919788482248084`, 0.11438435967854878`, 0.6146334713972731], 
+      Point3DBox[{160., 256., 9.85263}]}, 
+     {RGBColor[0.33376384611322474`, 0.1163320473730171, 0.6450073670936372], 
+      Point3DBox[{176., 256., 10.876065}]}, 
+     {RGBColor[0.3096049866506061, 0.12017993318876817`, 0.6669936164962972], 
+      Point3DBox[{192., 256., 11.643511}]}, 
+     {RGBColor[0.30212145883503017`, 0.1335520938942972, 0.679978403049336], 
+      Point3DBox[{208., 256., 12.217988}]}, 
+     {RGBColor[0.3136791390655319, 0.11743603489994763`, 0.6622238859884844], 
+      Point3DBox[{224., 256., 11.456168}]}, 
+     {RGBColor[0.2931758165013443, 0.149536876719752, 0.6955001274479509], 
+      Point3DBox[{240., 256., 12.904705}]}, 
+     {RGBColor[0.4672428781649897, 0.10899516234193388`, 0.530589752142709], 
+      Point3DBox[{16., 384., 7.020814}]}, 
+     {RGBColor[
+      0.39535415944819274`, 0.11294663888584881`, 0.5922124325818672], 
+      Point3DBox[{32., 384., 9.097163}]}, 
+     {RGBColor[
+      0.37059359336132064`, 0.11430764236251073`, 0.6134370764300189], 
+      Point3DBox[{48., 384., 9.812318}]}, 
+     {RGBColor[0.35032317038282956`, 0.1154218380578087, 0.6308127901701814], 
+      Point3DBox[{64., 384., 10.397785}]}, 
+     {RGBColor[
+      0.34320032045530335`, 0.11581335671215175`, 0.6369184645059444], 
+      Point3DBox[{80., 384., 10.603513}]}, 
+     {RGBColor[
+      0.34948464425904113`, 0.11546792896565564`, 0.6315315709231069], 
+      Point3DBox[{96., 384., 10.422004}]}, 
+     {RGBColor[0.30094838028384663`, 0.1356482436372013, 0.6820138300528091], 
+      Point3DBox[{112., 384., 12.30804}]}, 
+     {RGBColor[0.29408157456049167`, 0.14791839642199223`, 0.693928532425314],
+       Point3DBox[{128., 384., 12.835174}]}, 
+     {RGBColor[
+      0.27554912974997264`, 0.18103363784019177`, 0.7260844682487504], 
+      Point3DBox[{144., 384., 14.257827}]}, 
+     {RGBColor[0.2780845775335821, 0.17650309876043635`, 0.7216851730102105], 
+      Point3DBox[{160., 384., 14.063192}]}, 
+     {RGBColor[
+      0.25338891099149036`, 0.22063127331517923`, 0.7645350115805511], 
+      Point3DBox[{176., 384., 15.958968}]}, 
+     {RGBColor[0.2565899439424939, 0.21491141389868568`, 0.7589808490729283], 
+      Point3DBox[{192., 384., 15.713239}]}, 
+     {RGBColor[0.24899122469168122`, 0.26087807976638905`, 0.781412881283095],
+       Point3DBox[{208., 384., 17.373182}]}, 
+     {RGBColor[0.24922141333870607`, 0.256174032108416, 0.7797878491558133], 
+      Point3DBox[{224., 384., 17.212818}]}, 
+     {RGBColor[0.2473091784696075, 0.29525173673781613`, 0.7932873989266517], 
+      Point3DBox[{240., 384., 18.545002}]}, 
+     {RGBColor[0.24719868177546592`, 0.2975098051612972, 0.7940674577186875], 
+      Point3DBox[{256., 384., 18.621981}]}, 
+     {RGBColor[0.3886388528132515, 0.11331575628183, 0.5979687626737437], 
+      Point3DBox[{16., 512., 9.29112}]}, 
+     {RGBColor[0.3185065068506421, 0.11717069103359136`, 0.6580858884320663], 
+      Point3DBox[{32., 512., 11.31674}]}, 
+     {RGBColor[0.3162091204621047, 0.1172969704914626, 0.6600551975224651], 
+      Point3DBox[{48., 512., 11.383095}]}, 
+     {RGBColor[0.2980709821607826, 0.14078980668923083`, 0.6870064486916196], 
+      Point3DBox[{64., 512., 12.528925}]}, 
+     {RGBColor[0.2779393951894594, 0.17676252208123616`, 0.7219370811738682], 
+      Point3DBox[{80., 512., 14.074337}]}, 
+     {RGBColor[0.2751535876506508, 0.18174042381711109`, 0.7267707795525911], 
+      Point3DBox[{96., 512., 14.288191}]}, 
+     {RGBColor[0.24923427177264415`, 0.2559112620420662, 0.7796970741826511], 
+      Point3DBox[{112., 512., 17.20386}]}, 
+     {RGBColor[0.24910785203678842`, 0.25849472769104603`, 0.78058954275112], 
+      Point3DBox[{128., 512., 17.291932}]}, 
+     {RGBColor[
+      0.24625295529908564`, 0.31683631180617056`, 0.8007438769409315], 
+      Point3DBox[{144., 512., 19.280834}]}, 
+     {RGBColor[0.24620152156333325`, 0.3178873920715699, 0.8011069768335806], 
+      Point3DBox[{160., 512., 19.316666}]}, 
+     {RGBColor[
+      0.25082063854950476`, 0.39959715688939224`, 0.8119387611133955], 
+      Point3DBox[{176., 512., 22.210981}]}, 
+     {RGBColor[0.2515912869422149, 0.40398225183134373`, 0.8114648413709409], 
+      Point3DBox[{192., 512., 22.372908}]}, 
+     {RGBColor[0.2676969587794991, 0.4905783841957693, 0.8000412086148291], 
+      Point3DBox[{208., 512., 25.609358}]}, 
+     {RGBColor[0.26593686819892776`, 0.4856105746867758, 0.8026428490864502], 
+      Point3DBox[{224., 512., 25.387171}]}, 
+     {RGBColor[0.28277331533691963`, 0.5280489850815402, 0.7762267250540298], 
+      Point3DBox[{240., 512., 27.363885}]}, 
+     {RGBColor[0.2904661087464976, 0.5471685641687771, 0.764075254538506], 
+      Point3DBox[{256., 512., 28.259142}]}, 
+     {RGBColor[0.390176998961954, 0.1132312096584348, 0.5966502708396686], 
+      Point3DBox[{16., 640., 9.246694}]}, 
+     {RGBColor[0.2986029005688188, 0.13983933271361673`, 0.686083508714353], 
+      Point3DBox[{32., 640., 12.488092}]}, 
+     {RGBColor[0.2769739358577131, 0.1784876813452791, 0.7236122648114933], 
+      Point3DBox[{48., 640., 14.148451}]}, 
+     {RGBColor[0.273981199513486, 0.18383533987351874`, 0.7288050086078656], 
+      Point3DBox[{64., 640., 14.37819}]}, 
+     {RGBColor[0.24861913968067825`, 0.2684818675604354, 0.7840396402687135], 
+      Point3DBox[{80., 640., 17.6324}]}, 
+     {RGBColor[0.24812818377330162`, 0.2785148557903633, 0.7875055762863129], 
+      Point3DBox[{96., 640., 17.974431}]}, 
+     {RGBColor[
+      0.25078891349941546`, 0.39941663700769836`, 0.8119582708245814], 
+      Point3DBox[{112., 640., 22.204315}]}, 
+     {RGBColor[
+      0.25707579424007415`, 0.43518984979487246`, 0.8080920759039922], 
+      Point3DBox[{128., 640., 23.525301}]}, 
+     {RGBColor[0.27008638488729625`, 0.4965170359973706, 0.7962668916207226], 
+      Point3DBox[{160., 640., 25.88743}]}, 
+     {RGBColor[0.30383463985250736`, 0.5803945555808567, 0.7429584374186957], 
+      Point3DBox[{176., 640., 29.814919}]}, 
+     {RGBColor[0.3021223461282175, 0.5761388407138256, 0.7456631619052156], 
+      Point3DBox[{192., 640., 29.615649}]}, 
+     {RGBColor[0.34694592619582365`, 0.6383495786940797, 0.6690026257523446], 
+      Point3DBox[{208., 640., 33.540065}]}, 
+     {RGBColor[0.3470017663581713, 0.6384214081318504, 0.6689064485668741], 
+      Point3DBox[{224., 640., 33.544805}]}, 
+     {RGBColor[0.40203643135902356`, 0.683372620157109, 0.582561716433614], 
+      Point3DBox[{240., 640., 37.4637}]}, 
+     {RGBColor[0.4027173935811507, 0.6838251092551431, 0.581527235445353], 
+      Point3DBox[{256., 640., 37.509169}]}, 
+     {RGBColor[0.35462216180330297`, 0.1151855372297551, 0.6271277144136063], 
+      Point3DBox[{16., 768., 10.273618}]}, 
+     {RGBColor[0.24890876449359667`, 0.2625632050177396, 0.7819950145587428], 
+      Point3DBox[{32., 768., 17.430629}]}, 
+     {RGBColor[0.2478342254470924, 0.28452207636278787`, 0.7895807947227826], 
+      Point3DBox[{48., 768., 18.179221}]}, 
+     {RGBColor[0.24827980075735442`, 0.2754164687588534, 0.7864352260613481], 
+      Point3DBox[{64., 768., 17.868805}]}, 
+     {RGBColor[0.25593184109505335`, 0.4286805996653562, 0.8087955640121837], 
+      Point3DBox[{80., 768., 23.284936}]}, 
+     {RGBColor[0.256003976796254, 0.4290910616885838, 0.8087512032722429], 
+      Point3DBox[{96., 768., 23.300093}]}, 
+     {RGBColor[0.2931330146000908, 0.5537968608967906, 0.7598626329169158], 
+      Point3DBox[{112., 768., 28.569506}]}, 
+     {RGBColor[0.2961033505535089, 0.5611792992586908, 0.7551707157111032], 
+      Point3DBox[{128., 768., 28.915182}]}, 
+     {RGBColor[0.35128940727960084`, 0.6439367724109071, 0.6615215625136416], 
+      Point3DBox[{144., 768., 33.908762}]}, 
+     {RGBColor[0.3554801172187946, 0.649327450484483, 0.6543036270684371], 
+      Point3DBox[{160., 768., 34.264491}]}, 
+     {RGBColor[0.42986428811329236`, 0.7018564860858896, 0.5402944278753176], 
+      Point3DBox[{176., 768., 39.32156}]}, 
+     {RGBColor[0.4345936358279301, 0.7034449697197227, 0.534656049449487], 
+      Point3DBox[{192., 768., 39.583643}]}, 
+     {RGBColor[0.5278686594286117, 0.7320360514972938, 0.428092122364195], 
+      Point3DBox[{208., 768., 44.662014}]}, 
+     {RGBColor[0.5822969541164296, 0.7400055912611, 0.38067572887456586`], 
+      Point3DBox[{224., 768., 47.337059}]}, 
+     {RGBColor[0.658933545205012, 0.7431245385683299, 0.32729778550908223`], 
+      Point3DBox[{240., 768., 51.021997}]}, 
+     {RGBColor[0.6446436559210469, 0.7432899066895682, 0.3360168086963915], 
+      Point3DBox[{256., 768., 50.342415}]}, 
+     {RGBColor[0.30928339701136354`, 0.12075457504795035`, 0.667551611726106],
+       Point3DBox[{16., 896., 11.668198}]}, 
+     {RGBColor[
+      0.24878750076295475`, 0.26504130450481617`, 0.7828510839640503], 
+      Point3DBox[{32., 896., 17.515109}]}, 
+     {RGBColor[
+      0.24720983193722118`, 0.37905117254469445`, 0.8141592712136362], 
+      Point3DBox[{48., 896., 21.452286}]}, 
+     {RGBColor[0.24833915043942398`, 0.385477149551467, 0.8134647828597046], 
+      Point3DBox[{64., 896., 21.689576}]}, 
+     {RGBColor[0.2895799728990675, 0.5449661724607298, 0.7654749871258115], 
+      Point3DBox[{80., 896., 28.156017}]}, 
+     {RGBColor[0.37519519165342036`, 0.6655370223076922, 0.623337476489828], 
+      Point3DBox[{112., 896., 35.671465}]}, 
+     {RGBColor[0.3651064253475279, 0.6588331896754355, 0.6386637847626315], 
+      Point3DBox[{128., 896., 34.997821}]}, 
+     {RGBColor[0.5027198063785538, 0.7263270484935972, 0.45343530751118494`], 
+      Point3DBox[{144., 896., 43.358944}]}, 
+     {RGBColor[0.5007733758130777, 0.7256732853777913, 0.45575586264266527`], 
+      Point3DBox[{160., 896., 43.25108}]}, 
+     {RGBColor[0.629189580828442, 0.7434687472188931, 0.34544616370350406`], 
+      Point3DBox[{176., 896., 49.607468}]}, 
+     {RGBColor[0.6136829791188417, 0.7436481956065293, 0.35490756799962325`], 
+      Point3DBox[{192., 896., 48.870023}]}, 
+     {RGBColor[0.7644230755842196, 0.7283715149646794, 0.2737320810766519], 
+      Point3DBox[{208., 896., 56.287242}]}, 
+     {RGBColor[0.7695074443793604, 0.7271540860857009, 0.27155442100282734`], 
+      Point3DBox[{224., 896., 56.550314}]}, 
+     {RGBColor[0.8745839173011397, 0.6448065243174034, 0.23065279717872592`], 
+      Point3DBox[{240., 896., 63.844774}]}, 
+     {RGBColor[0.8832821625993873, 0.6244084873392587, 0.2260088777247898], 
+      Point3DBox[{256., 896., 64.918989}]}, 
+     {RGBColor[0.28803165888806465`, 0.15872886531050356`, 0.704425836050864],
+       Point3DBox[{16., 1024., 13.299599}]}, 
+     {RGBColor[0.2456338355808136, 0.3700835373476456, 0.815128449628077], 
+      Point3DBox[{32., 1024., 21.121141}]}, 
+     {RGBColor[0.29903429696293077`, 0.5684638393069941, 0.7505410178912804], 
+      Point3DBox[{48., 1024., 29.256274}]}, 
+     {RGBColor[0.28016323388438397`, 0.5215619190576752, 0.7803495873388943], 
+      Point3DBox[{64., 1024., 27.060134}]}, 
+     {RGBColor[0.36753640718986047`, 0.6604478758597022, 0.6349722877367611], 
+      Point3DBox[{80., 1024., 35.160075}]}, 
+     {RGBColor[0.3832491136231626, 0.6708887316526565, 0.6111023937085687], 
+      Point3DBox[{96., 1024., 36.209239}]}, 
+     {RGBColor[0.5298411686867777, 0.7323248716974782, 0.42637372799443596`], 
+      Point3DBox[{112., 1024., 44.758959}]}, 
+     {RGBColor[0.5122587128501002, 0.7295309568820241, 0.4420629222055503], 
+      Point3DBox[{128., 1024., 43.887555}]}, 
+     {RGBColor[0.7537484561318893, 0.7309275038232755, 0.27830407290518067`], 
+      Point3DBox[{144., 1024., 55.734923}]}, 
+     {RGBColor[0.7550187752542855, 0.7306233317131402, 0.27775998899913085`], 
+      Point3DBox[{160., 1024., 55.800651}]}, 
+     {RGBColor[0.8657846500395598, 0.6654414653690711, 0.23535065140280337`], 
+      Point3DBox[{176., 1024., 62.758083}]}, 
+     {RGBColor[0.8765114400056461, 0.6402863391473375, 0.22962370914103122`], 
+      Point3DBox[{192., 1024., 64.082819}]}, 
+     {RGBColor[
+      0.9028031375608901, 0.45745794977083826`, 0.19267904943256445`], 
+      Point3DBox[{208., 1024., 71.614676}]}, 
+     {RGBColor[
+      0.8860541134847602, 0.34483437094302505`, 0.17060774086781463`], 
+      Point3DBox[{224., 1024., 74.884302}]}, 
+     {RGBColor[
+      0.8578779040425928, 0.13516014416388922`, 0.13283710383264086`], 
+      Point3DBox[{240., 1024., 80.887257}]}, 
+     {RGBColor[0.857359, 0.131106, 0.132128], 
+      Point3DBox[{256., 1024., 81.003088}]}},
+    Axes->True,
+    AxesLabel->{
+      FormBox["\" N\"", TraditionalForm], 
+      FormBox["\" L\"", TraditionalForm], 
+      FormBox["\"Time (ms)\"", TraditionalForm]},
+    BoxRatios->{1, 1, 0.4},
+    FaceGridsStyle->Automatic,
+    ImageSize->Medium,
+    PlotLabel->FormBox["\"basic_output2.csv\"", TraditionalForm],
+    PlotRange->{{16., 256.}, {128., 1024.}, Automatic},
+    PlotRangePadding->{{
+       Scaled[0.02], 
+       Scaled[0.02]}, {
+       Scaled[0.02], 
+       Scaled[0.02]}, {Automatic, Automatic}},
+    Ticks->{Automatic, Automatic, Automatic},
+    ImageCache->GraphicsData["CompressedBitmap", "\<\
+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
+jdo9b4//BXmeQg0=\
+\>"]], ",", 
+   Graphics3DBox[
+    {RGBColor[0.3315753, 0.4561011, 0.6388182], 
+     {RGBColor[
+      0.31543357947595835`, 0.11733959932210951`, 0.6607199877038709], 
+      Point3DBox[{16., 128., 11.054819}]}, 
+     {RGBColor[0.30148466564447013`, 0.13468996644454445`, 0.681083312907577],
+       Point3DBox[{32., 128., 11.916952}]}, 
+     {RGBColor[0.29700458028206367`, 0.1426953380977234, 0.6888567793266049], 
+      Point3DBox[{48., 128., 12.26117}]}, 
+     {RGBColor[0.29796988276791153`, 0.1409704590983645, 0.6871818678347595], 
+      Point3DBox[{64., 128., 12.187003}]}, 
+     {RGBColor[0.3021469469419794, 0.13350654972440776`, 0.6799341782349793], 
+      Point3DBox[{80., 128., 11.866067}]}, 
+     {RGBColor[0.3000156727545029, 0.1373148793845399, 0.6836321855241061], 
+      Point3DBox[{96., 128., 12.029819}]}, 
+     {RGBColor[0.4504531167754882, 0.10991803799603901`, 0.5449818587099557], 
+      Point3DBox[{112., 128., 7.151651}]}, 
+     {RGBColor[0.471412, 0.108766, 0.527016], 
+      Point3DBox[{16., 256., 6.545768}]}, 
+     {RGBColor[0.4344073771519315, 0.11080001732303231`, 0.5587361932269979], 
+      Point3DBox[{32., 256., 7.615504}]}, 
+     {RGBColor[0.439034061961367, 0.11054570431221632`, 0.5547702201982153], 
+      Point3DBox[{48., 256., 7.481755}]}, 
+     {RGBColor[0.4196029820198221, 0.1116137641967502, 0.5714264529312351], 
+      Point3DBox[{64., 256., 8.043472}]}, 
+     {RGBColor[
+      0.42150012723215163`, 0.11150948462492402`, 0.5698002287440074], 
+      Point3DBox[{80., 256., 7.988629}]}, 
+     {RGBColor[
+      0.42150915582104026`, 0.11150898835432892`, 0.5697924894789622], 
+      Point3DBox[{96., 256., 7.988368}]}, 
+     {RGBColor[0.3558758115991441, 0.11511662839606082`, 0.6260530915502323], 
+      Point3DBox[{112., 256., 9.885708}]}, 
+     {RGBColor[
+      0.36754887763245714`, 0.11447499995352427`, 0.6160469928082335], 
+      Point3DBox[{128., 256., 9.548261}]}, 
+     {RGBColor[0.3590846274378274, 0.11494025078429324`, 0.6233025093094462], 
+      Point3DBox[{144., 256., 9.792947}]}, 
+     {RGBColor[0.35103289035621166`, 0.11538282718270025`, 0.630204421459462],
+       Point3DBox[{160., 256., 10.025708}]}, 
+     {RGBColor[0.3150155661881041, 0.1173625760802363, 0.6610783067797503], 
+      Point3DBox[{176., 256., 11.066903}]}, 
+     {RGBColor[
+      0.30614980191555274`, 0.12635393115911822`, 0.6729887617528706], 
+      Point3DBox[{192., 256., 11.558516}]}, 
+     {RGBColor[
+      0.31146985599238564`, 0.11755747162045446`, 0.6641176733204364], 
+      Point3DBox[{208., 256., 11.169403}]}, 
+     {RGBColor[0.3014466871276944, 0.13475782946880227`, 0.6811492100280376], 
+      Point3DBox[{224., 256., 11.91987}]}, 
+     {RGBColor[0.2871556888372384, 0.16029411803375787`, 0.7059457454327948], 
+      Point3DBox[{240., 256., 13.017889}]}, 
+     {RGBColor[0.4431977634999782, 0.11031683990540307`, 0.5512011143087552], 
+      Point3DBox[{16., 384., 7.36139}]}, 
+     {RGBColor[
+      0.35898008952356925`, 0.11494599687524484`, 0.6233921187307725], 
+      Point3DBox[{32., 384., 9.795969}]}, 
+     {RGBColor[0.3834630973519737, 0.11360024982500813`, 0.6024053965505834], 
+      Point3DBox[{48., 384., 9.08821}]}, 
+     {RGBColor[0.369110961879365, 0.11438913753489371`, 0.6147079813460116], 
+      Point3DBox[{64., 384., 9.503104}]}, 
+     {RGBColor[0.3223375788152937, 0.11696011013471613`, 0.6548019110899861], 
+      Point3DBox[{80., 384., 10.855237}]}, 
+     {RGBColor[0.3123653121302039, 0.11750825146480483`, 0.6633500924202198], 
+      Point3DBox[{96., 384., 11.143517}]}, 
+     {RGBColor[0.29275632265811125`, 0.1502864615712998, 0.6962279977985304], 
+      Point3DBox[{112., 384., 12.587576}]}, 
+     {RGBColor[0.2903376455894006, 0.1546083454814871, 0.7004246823371474], 
+      Point3DBox[{128., 384., 12.77341}]}, 
+     {RGBColor[0.2668119457810028, 0.19664593073548386`, 0.7412444932673752], 
+      Point3DBox[{144., 384., 14.580958}]}, 
+     {RGBColor[0.27291826134015074`, 0.1857346820586705, 0.7306493293132831], 
+      Point3DBox[{160., 384., 14.111792}]}, 
+     {RGBColor[0.2497860147453075, 0.2446360524611168, 0.7758020078178742], 
+      Point3DBox[{176., 384., 16.473557}]}, 
+     {RGBColor[0.24853628516897733`, 0.2701750508549061, 0.7846245572276709], 
+      Point3DBox[{192., 384., 17.344962}]}, 
+     {RGBColor[
+      0.24842879957667843`, 0.27237158554614543`, 0.7853833589451455], 
+      Point3DBox[{208., 384., 17.419909}]}, 
+     {RGBColor[0.24896399169099565`, 0.2614346030126498, 0.7816051344702455], 
+      Point3DBox[{224., 384., 17.046733}]}, 
+     {RGBColor[0.245435978299835, 0.3335317430953092, 0.8065113806305872], 
+      Point3DBox[{240., 384., 19.506728}]}, 
+     {RGBColor[0.24543919080636295`, 0.3334660935335072, 0.8064887017261995], 
+      Point3DBox[{256., 384., 19.504488}]}, 
+     {RGBColor[0.4128809381500427, 0.11198325191544554`, 0.5771885581499587], 
+      Point3DBox[{16., 512., 8.237794}]}, 
+     {RGBColor[
+      0.32316997320006996`, 0.11691435626755253`, 0.6540883864356589], 
+      Point3DBox[{32., 512., 10.831174}]}, 
+     {RGBColor[0.3001275388791387, 0.13711498812563108`, 0.6834380848557171], 
+      Point3DBox[{48., 512., 12.021224}]}, 
+     {RGBColor[0.2969889749902151, 0.14272322287019945`, 0.6888838563133878], 
+      Point3DBox[{64., 512., 12.262369}]}, 
+     {RGBColor[
+      0.27185535745015577`, 0.18763396298363233`, 0.7324935905331389], 
+      Point3DBox[{80., 512., 14.193458}]}, 
+     {RGBColor[0.2743221389047482, 0.1832261223436106, 0.7282134393196685], 
+      Point3DBox[{96., 512., 14.003928}]}, 
+     {RGBColor[0.24859970348981014`, 0.2688790581661181, 0.7841768513562319], 
+      Point3DBox[{112., 512., 17.300742}]}, 
+     {RGBColor[
+      0.24942538507276163`, 0.25200574331451503`, 0.7783478970765871], 
+      Point3DBox[{128., 512., 16.725015}]}, 
+     {RGBColor[
+      0.24515983037820044`, 0.33917499701251486`, 0.8084608653264586], 
+      Point3DBox[{144., 512., 19.699279}]}, 
+     {RGBColor[0.24493006732202713`, 0.3438703474576835, 0.8100828929667001], 
+      Point3DBox[{160., 512., 19.859487}]}, 
+     {RGBColor[0.2609318343399504, 0.4571312462836971, 0.8057207564432436], 
+      Point3DBox[{176., 512., 23.996197}]}, 
+     {RGBColor[0.2511961155761122, 0.4017336726153319, 0.811707856880764], 
+      Point3DBox[{192., 512., 21.948753}]}, 
+     {RGBColor[0.2718884714257472, 0.5009959208782591, 0.7934203311747936], 
+      Point3DBox[{208., 512., 25.759369}]}, 
+     {RGBColor[0.2624546850531264, 0.4657964754892124, 0.8047842605981704], 
+      Point3DBox[{224., 512., 24.316456}]}, 
+     {RGBColor[0.2912111590423334, 0.5490203034911234, 0.7628983794789004], 
+      Point3DBox[{240., 512., 28.010041}]}, 
+     {RGBColor[0.30510634207647525`, 0.5835552294677047, 0.7409496674886684], 
+      Point3DBox[{256., 512., 29.628527}]}, 
+     {RGBColor[0.38038766940123864`, 0.1137692955616237, 0.6050416393047268], 
+      Point3DBox[{16., 640., 9.177115}]}, 
+     {RGBColor[
+      0.28579724753105906`, 0.16272148864063266`, 0.7083027982613894], 
+      Point3DBox[{32., 640., 13.122262}]}, 
+     {RGBColor[0.2716519940763996, 0.18799734878007796`, 0.7328464495143582], 
+      Point3DBox[{48., 640., 14.209083}]}, 
+     {RGBColor[
+      0.25939938009191627`, 0.20989129068837226`, 0.7541061523211219], 
+      Point3DBox[{64., 640., 15.150487}]}, 
+     {RGBColor[
+      0.24803747038862495`, 0.28036864002451417`, 0.7881459734839131], 
+      Point3DBox[{80., 640., 17.692773}]}, 
+     {RGBColor[0.24821397754416943`, 0.2767616069132546, 0.7868999094309627], 
+      Point3DBox[{96., 640., 17.569699}]}, 
+     {RGBColor[0.24881759659760927`, 0.38819957374400466`, 0.813170556488495],
+       Point3DBox[{112., 640., 21.448545}]}, 
+     {RGBColor[0.2511569814335294, 0.4015109939822212, 0.8117319229048412], 
+      Point3DBox[{128., 640., 21.940523}]}, 
+     {RGBColor[
+      0.27089311784503695`, 0.49852208068875664`, 0.7949925831572089], 
+      Point3DBox[{144., 640., 25.643432}]}, 
+     {RGBColor[
+      0.26575548117536457`, 0.48457845767065466`, 0.8027543952757433], 
+      Point3DBox[{160., 640., 25.010621}]}, 
+     {RGBColor[0.3004345153378091, 0.571943925737569, 0.7483292449511095], 
+      Point3DBox[{176., 640., 29.084361}]}, 
+     {RGBColor[0.3003839822795442, 0.571818331463477, 0.7484090665366991], 
+      Point3DBox[{192., 640., 29.078475}]}, 
+     {RGBColor[0.3457476040971781, 0.6368081289741087, 0.6710665747433476], 
+      Point3DBox[{208., 640., 33.107008}]}, 
+     {RGBColor[0.3414925251092554, 0.6313346504145447, 0.678395377236173], 
+      Point3DBox[{224., 640., 32.745498}]}, 
+     {RGBColor[0.402564951350015, 0.6837238136980218, 0.5817588174403502], 
+      Point3DBox[{240., 640., 37.171217}]}, 
+     {RGBColor[0.40260080335190523`, 0.6837476368110681, 0.5817043530175947], 
+      Point3DBox[{256., 640., 37.173613}]}, 
+     {RGBColor[
+      0.32195927748163145`, 0.11698090406279249`, 0.6551261892606098], 
+      Point3DBox[{16., 768., 10.866173}]}, 
+     {RGBColor[0.2537262382803109, 0.22002851017623826`, 0.763949709707986], 
+      Point3DBox[{32., 768., 15.586371}]}, 
+     {RGBColor[0.24805285886855566`, 0.2800541669003465, 0.7880373374820918], 
+      Point3DBox[{48., 768., 17.682043}]}, 
+     {RGBColor[0.245167676638564, 0.33901465381938145`, 0.8084054741273938], 
+      Point3DBox[{64., 768., 19.693808}]}, 
+     {RGBColor[0.2577387593436019, 0.4389622120675635, 0.8076843773295289], 
+      Point3DBox[{80., 768., 23.324686}]}, 
+     {RGBColor[0.2566453428407295, 0.4327405223559556, 0.8083567873057759], 
+      Point3DBox[{96., 768., 23.094738}]}, 
+     {RGBColor[0.29350636093319343`, 0.5547247715220518, 0.7592728982500355], 
+      Point3DBox[{112., 768., 28.277382}]}, 
+     {RGBColor[0.29220381683977903`, 0.551487443612317, 0.7613303857326174], 
+      Point3DBox[{128., 768., 28.125664}]}, 
+     {RGBColor[0.3602004893568336, 0.6553994542625686, 0.6461734195704061], 
+      Point3DBox[{144., 768., 34.33492}]}, 
+     {RGBColor[0.3549265501787294, 0.6486153750250901, 0.6552570720020543], 
+      Point3DBox[{160., 768., 33.886848}]}, 
+     {RGBColor[0.4460661323430132, 0.707298328375719, 0.5209784176186003], 
+      Point3DBox[{176., 768., 39.894021}]}, 
+     {RGBColor[0.4487855794944973, 0.7082117307207901, 0.5177362639275834], 
+      Point3DBox[{192., 768., 40.044855}]}, 
+     {RGBColor[0.5556999013832984, 0.7361111780597953, 0.4038463302188118], 
+      Point3DBox[{208., 768., 45.70958}]}, 
+     {RGBColor[0.5689221047361824, 0.738047209236049, 0.39232752000114446`], 
+      Point3DBox[{224., 768., 46.359996}]}, 
+     {RGBColor[0.6577022656074514, 0.7431387874116709, 0.3280490548259997], 
+      Point3DBox[{240., 768., 50.647486}]}, 
+     {RGBColor[0.6619171810105934, 0.7430900107817374, 0.32547731025875665`], 
+      Point3DBox[{256., 768., 50.84811}]}, 
+     {RGBColor[0.2570702219534261, 0.21405321507805056`, 0.758147511159078], 
+      Point3DBox[{16., 896., 15.329443}]}, 
+     {RGBColor[0.24714620777955307`, 0.2985821437877613, 0.794437901397415], 
+      Point3DBox[{32., 896., 18.314228}]}, 
+     {RGBColor[0.24754635512144763`, 0.380966035570375, 0.813952322127247], 
+      Point3DBox[{48., 896., 21.1812}]}, 
+     {RGBColor[
+      0.24679867426536212`, 0.37671162905862665`, 0.8144121176995289], 
+      Point3DBox[{64., 896., 21.023961}]}, 
+     {RGBColor[0.29252173038846235`, 0.552277582241204, 0.7608282122167523], 
+      Point3DBox[{80., 896., 28.162694}]}, 
+     {RGBColor[0.2929438351017911, 0.553326676376442, 0.7601614592304975], 
+      Point3DBox[{96., 896., 28.21186}]}, 
+     {RGBColor[0.379416304298213, 0.6683418878219289, 0.6169249903952164], 
+      Point3DBox[{112., 896., 35.624186}]}, 
+     {RGBColor[0.3684837929555645, 0.6610773993731721, 0.6335330705066062], 
+      Point3DBox[{128., 896., 34.893563}]}, 
+     {RGBColor[
+      0.48945396564210647`, 0.7218713450498303, 0.46925098331302606`], 
+      Point3DBox[{144., 896., 42.300525}]}, 
+     {RGBColor[
+      0.47887953979105824`, 0.7183196285309578, 0.48185792578831893`], 
+      Point3DBox[{160., 896., 41.714015}]}, 
+     {RGBColor[0.6362008271436536, 0.7433876103669802, 0.3411682285859197], 
+      Point3DBox[{176., 896., 49.624048}]}, 
+     {RGBColor[0.6374230694148106, 0.7433734661070729, 0.34042247342358367`], 
+      Point3DBox[{192., 896., 49.682225}]}, 
+     {RGBColor[0.7738658291264702, 0.7261104907702111, 0.2696877034548758], 
+      Point3DBox[{208., 896., 56.464969}]}, 
+     {RGBColor[0.7689488178734764, 0.727287846650331, 0.2717936834731671], 
+      Point3DBox[{224., 896., 56.210333}]}, 
+     {RGBColor[0.869713235661045, 0.6562286377203721, 0.2332532128311705], 
+      Point3DBox[{240., 896., 62.938078}]}, 
+     {RGBColor[0.8760657115995634, 0.6413316056577355, 0.22986167975984056`], 
+      Point3DBox[{256., 896., 63.723284}]}, 
+     {RGBColor[0.2887806044931319, 0.15739058993591162`, 0.7031263287781852], 
+      Point3DBox[{16., 1024., 12.893042}]}, 
+     {RGBColor[
+      0.24439973555798813`, 0.35470800572111344`, 0.8138268054742028], 
+      Point3DBox[{32., 1024., 20.229274}]}, 
+     {RGBColor[0.275238480079187, 0.5093219933440325, 0.7881286862271546], 
+      Point3DBox[{48., 1024., 26.149572}]}, 
+     {RGBColor[0.27900169049294504`, 0.5186750326493877, 0.7821843513215067], 
+      Point3DBox[{64., 1024., 26.587904}]}, 
+     {RGBColor[0.3717967214307258, 0.6632787902416618, 0.6285002486970244], 
+      Point3DBox[{80., 1024., 35.114967}]}, 
+     {RGBColor[0.36857104379989736`, 0.6611353762396884, 0.6334005237415447], 
+      Point3DBox[{96., 1024., 34.899394}]}, 
+     {RGBColor[0.5366807461013335, 0.7333263413280366, 0.4204152812738197], 
+      Point3DBox[{112., 1024., 44.774005}]}, 
+     {RGBColor[0.5391837346314801, 0.7336928357540289, 0.4182347483409733], 
+      Point3DBox[{128., 1024., 44.89713}]}, 
+     {RGBColor[0.7238671647859364, 0.7380824425170429, 0.29110237643906084`], 
+      Point3DBox[{144., 1024., 53.875701}]}, 
+     {RGBColor[0.7133281742203492, 0.7406059556583577, 0.29561627775067034`], 
+      Point3DBox[{160., 1024., 53.329921}]}, 
+     {RGBColor[0.8757926510678342, 0.6419719530648849, 0.2300074644637572], 
+      Point3DBox[{176., 1024., 63.689532}]}, 
+     {RGBColor[0.874424055696567, 0.6451814117584507, 0.23073814593470576`], 
+      Point3DBox[{192., 1024., 63.520365}]}, 
+     {RGBColor[0.8890577589631669, 0.3643467783028713, 0.17443518582338727`], 
+      Point3DBox[{208., 1024., 74.026692}]}, 
+     {RGBColor[
+      0.9016274005917074, 0.44600220987313166`, 0.19045225967260607`], 
+      Point3DBox[{224., 1024., 71.672115}]}, 
+     {RGBColor[0.859967841632003, 0.15148861260029642`, 0.13569308997456048`],
+       Point3DBox[{240., 1024., 80.130636}]}, 
+     {RGBColor[0.857359, 0.131106, 0.132128], 
+      Point3DBox[{256., 1024., 80.713499}]}},
+    Axes->True,
+    AxesLabel->{
+      FormBox["\" N\"", TraditionalForm], 
+      FormBox["\" L\"", TraditionalForm], 
+      FormBox["\"Time (ms)\"", TraditionalForm]},
+    BoxRatios->{1, 1, 0.4},
+    FaceGridsStyle->Automatic,
+    ImageSize->Medium,
+    PlotLabel->FormBox["\"basic_output3.csv\"", TraditionalForm],
+    PlotRange->{{16., 256.}, {128., 1024.}, Automatic},
+    PlotRangePadding->{{
+       Scaled[0.02], 
+       Scaled[0.02]}, {
+       Scaled[0.02], 
+       Scaled[0.02]}, {Automatic, Automatic}},
+    Ticks->{Automatic, Automatic, Automatic},
+    ImageCache->GraphicsData["CompressedBitmap", "\<\
+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
+LOo4R/0fmK9KcA==\
+\>"]]}], "}"}]], "Output",
+ CellChangeTimes->{{3.704171192988266*^9, 3.704171241224382*^9}}]
 }, Open  ]],
 
-Cell[CellGroupData[{
-
-Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.7040969104575768`*^9, 3.704096911629631*^9}, {
-   3.70410030633188*^9, 3.704100336540699*^9}, {3.704100729574411*^9, 
-   3.7041007298964367`*^9}, {3.704112049230323*^9, 3.7041121087955236`*^9}, {
-   3.7041121457306833`*^9, 3.704112205665283*^9}, {3.704167484074098*^9, 
-   3.7041674841539288`*^9}, {3.704167540025703*^9, 3.704167540384344*^9}, {
-   3.7041690977773*^9, 3.704169098121111*^9}, {3.704169138213756*^9, 
-   3.7041691791232758`*^9}, {3.704169282679212*^9, 3.704169284814754*^9}, {
-   3.704169317063308*^9, 3.704169322821313*^9}, {3.7041694411551933`*^9, 
-   3.704169449506978*^9}, {3.7041695928561583`*^9, 3.704169611310257*^9}, {
-   3.704169668508896*^9, 3.7041696806436157`*^9}, 3.704169828130954*^9}],
+Cell[BoxData["\[AliasDelimiter]"], "Input",
+ CellChangeTimes->{3.704170741514324*^9}],
 
 Cell[BoxData[
- Graphics3DBox[
-  {RGBColor[0.3315753, 0.4561011, 0.6388182], 
-   {RGBColor[0.33377724269607534`, 0.11633131100876068`, 0.644995883604173], 
-    Point3DBox[{16., 128., 10.496795}]}, 
-   {RGBColor[0.471412, 0.108766, 0.527016], 
-    Point3DBox[{32., 128., 6.450243}]}, 
-   {RGBColor[0.2921526248126755, 0.15136519673547547`, 0.6972754834040756], 
-    Point3DBox[{48., 128., 12.642154}]}, 
-   {RGBColor[0.3076405876944839, 0.12369007695764225`, 0.6704020759527007], 
-    Point3DBox[{64., 128., 11.431896}]}, 
-   {RGBColor[0.29482938524896196`, 0.14658214900633837`, 0.6926309943642331], 
-    Point3DBox[{80., 128., 12.432987}]}, 
-   {RGBColor[0.2961137675101574, 0.14428711297155694`, 0.6904024425468108], 
-    Point3DBox[{96., 128., 12.332623}]}, 
-   {RGBColor[0.29445145713791, 0.14725746091279052`, 0.6932867433606075], 
-    Point3DBox[{112., 128., 12.462519}]}, 
-   {RGBColor[0.4626094069628241, 0.10924984837750491`, 0.5345615424362586], 
-    Point3DBox[{16., 256., 6.709045}]}, 
-   {RGBColor[0.42589338808041405`, 0.11126800212943544`, 0.5660343456656783], 
-    Point3DBox[{32., 256., 7.78852}]}, 
-   {RGBColor[0.4176062937645441, 0.11172351530856683`, 0.5731380049589785], 
-    Point3DBox[{48., 256., 8.032166}]}, 
-   {RGBColor[0.43540807409919874`, 0.11074501244069088`, 0.5578784003869165], 
-    Point3DBox[{64., 256., 7.508782}]}, 
-   {RGBColor[0.4048035857486196, 0.11242723630021245`, 0.5841124276347972], 
-    Point3DBox[{80., 256., 8.408574}]}, 
-   {RGBColor[0.39782387727661084`, 0.11281088695921443`, 0.5900954017704676], 
-    Point3DBox[{96., 256., 8.613782}]}, 
-   {RGBColor[0.37858012225933757`, 0.11386865023452279`, 0.6065910604363355], 
-    Point3DBox[{112., 256., 9.179561}]}, 
-   {RGBColor[0.36355780382146874`, 0.1146943756056524, 0.6194681230001975], 
-    Point3DBox[{128., 256., 9.621227}]}, 
-   {RGBColor[0.3463335276296654, 0.11564113504959171`, 0.6342326936659325], 
-    Point3DBox[{144., 256., 10.127632}]}, 
-   {RGBColor[0.3327248511721951, 0.11638915736484905`, 0.6458979887985699], 
-    Point3DBox[{160., 256., 10.527736}]}, 
-   {RGBColor[0.31585665548404396`, 0.11731634428359881`, 0.6603573288873958], 
-    Point3DBox[{176., 256., 11.023672}]}, 
-   {RGBColor[0.3291606448508928, 0.11658506957371427`, 0.6489532101333955], 
-    Point3DBox[{192., 256., 10.632526}]}, 
-   {RGBColor[0.3051297562805426, 0.1281766295567828, 0.6747586589419206], 
-    Point3DBox[{208., 256., 11.628097}]}, 
-   {RGBColor[0.30273561010690253`, 0.13245467971914188`, 0.6789127795395333], 
-    Point3DBox[{224., 256., 11.81518}]}, 
-   {RGBColor[0.2910228204213635, 0.15338402077926286`, 0.6992358247336472], 
-    Point3DBox[{240., 256., 12.730439}]}, 
-   {RGBColor[0.4359288107990665, 0.11071638932858355`, 0.5574320272727245], 
-    Point3DBox[{16., 384., 7.493472}]}, 
-   {RGBColor[0.33233513196206543`, 0.11641057889447189`, 0.6462320543206085], 
-    Point3DBox[{32., 384., 10.539194}]}, 
-   {RGBColor[0.3789804874908296, 0.11384664352958385`, 0.6062478691935429], 
-    Point3DBox[{48., 384., 9.16779}]}, 
-   {RGBColor[0.3640378951682115, 0.11466798662933661`, 0.6190565908965515], 
-    Point3DBox[{64., 384., 9.607112}]}, 
-   {RGBColor[0.3410456182073902, 0.11593179331171462`, 0.6387654654044825], 
-    Point3DBox[{80., 384., 10.2831}]}, 
-   {RGBColor[0.3192774296261599, 0.11712831605015857`, 0.6574250569596602], 
-    Point3DBox[{96., 384., 10.923099}]}, 
-   {RGBColor[0.2928384417366694, 0.1501397246923129, 0.696085511696616], 
-    Point3DBox[{112., 384., 12.588563}]}, 
-   {RGBColor[0.29453939977569776`, 0.14710031803654985`, 0.6931341527096836], 
-    Point3DBox[{128., 384., 12.455647}]}, 
-   {RGBColor[0.25813932516832777`, 0.212142856707937, 0.7562924933932894], 
-    Point3DBox[{144., 384., 15.300016}]}, 
-   {RGBColor[0.28095901918054905`, 0.1713668185742513, 0.7166976841994726], 
-    Point3DBox[{160., 384., 13.516843}]}, 
-   {RGBColor[0.25391493043331204`, 0.21969134007999677`, 0.7636223069921367], 
-    Point3DBox[{176., 384., 15.630118}]}, 
-   {RGBColor[0.26033018717414785`, 0.20822805081057838`, 0.7524910943454332], 
-    Point3DBox[{192., 384., 15.128818}]}, 
-   {RGBColor[0.24870934541147338`, 0.26663845754796545`, 0.783402826887595], 
-    Point3DBox[{208., 384., 17.310687}]}, 
-   {RGBColor[0.24876736668368835`, 0.26545275689242415`, 0.7829932218413265], 
-    Point3DBox[{224., 384., 17.269541}]}, 
-   {RGBColor[0.2473380686389957, 0.29466134822211176`, 0.7930834468463678], 
-    Point3DBox[{240., 384., 18.283133}]}, 
-   {RGBColor[0.24508678517963525`, 0.3406677209138794, 0.8089765327841993], 
-    Point3DBox[{256., 384., 19.879639}]}, 
-   {RGBColor[0.40394445522595734`, 0.1124744597612653, 0.5848488703840706], 
-    Point3DBox[{16., 512., 8.433833}]}, 
-   {RGBColor[0.31119233761339354`, 0.11757272585484153`, 0.6643555608038952], 
-    Point3DBox[{32., 512., 11.160806}]}, 
-   {RGBColor[0.30891560237551907`, 0.12141177965764088`, 0.6681897779706215], 
-    Point3DBox[{48., 512., 11.332264}]}, 
-   {RGBColor[0.2991037404114986, 0.1389443923821186, 0.6852144936435571], 
-    Point3DBox[{64., 512., 12.098981}]}, 
-   {RGBColor[0.2737026126086372, 0.1843331410381433, 0.7292883891183788], 
-    Point3DBox[{80., 512., 14.083872}]}, 
-   {RGBColor[0.2737019471521231, 0.18433433012859213`, 0.7292895437624196], 
-    Point3DBox[{96., 512., 14.083924}]}, 
-   {RGBColor[0.24935785785461018`, 0.253385703866438, 0.7788246099830678], 
-    Point3DBox[{112., 512., 16.850792}]}, 
-   {RGBColor[0.2480406538422578, 0.3837786630162261, 0.8136483470269574], 
-    Point3DBox[{128., 512., 21.440729}]}, 
-   {RGBColor[0.24593829733855305`, 0.3232665422342866, 0.8029652258283737], 
-    Point3DBox[{144., 512., 19.275786}]}, 
-   {RGBColor[0.24567749633107686`, 0.3285961724496425, 0.8048063679587698], 
-    Point3DBox[{160., 512., 19.460734}]}, 
-   {RGBColor[0.2527158057403548, 0.41038091786438513`, 0.8107733046542733], 
-    Point3DBox[{176., 512., 22.440674}]}, 
-   {RGBColor[0.2509247874464408, 0.4001897783825196, 0.8118747134635467], 
-    Point3DBox[{192., 512., 22.057602}]}, 
-   {RGBColor[0.2826796198603918, 0.5278161154361186, 0.776374725625454], 
-    Point3DBox[{224., 512., 27.269516}]}, 
-   {RGBColor[0.29669113744167686`, 0.5626401779403899, 0.7542422525819502], 
-    Point3DBox[{240., 512., 28.929356}]}, 
-   {RGBColor[0.294621656284362, 0.5574967135900326, 0.7575111872753262], 
-    Point3DBox[{256., 512., 28.6842}]}, 
-   {RGBColor[0.38354919524630515`, 0.11359551731876788`, 0.6023315938298843], 
-    Point3DBox[{16., 640., 9.033467}]}, 
-   {RGBColor[0.2957258191596718, 0.14498032983611395`, 0.6910755778178758], 
-    Point3DBox[{32., 640., 12.362938}]}, 
-   {RGBColor[0.26354417577317185`, 0.20248504121523297`, 0.746914452289615], 
-    Point3DBox[{48., 640., 14.877671}]}, 
-   {RGBColor[0.2604695107331694, 0.20797909643141188`, 0.7522493518517475], 
-    Point3DBox[{64., 640., 15.117931}]}, 
-   {RGBColor[0.2476116496685903, 0.28907055033453566`, 0.7911520832962874], 
-    Point3DBox[{80., 640., 18.089122}]}, 
-   {RGBColor[0.2469901652166202, 0.3017709702663727, 0.7955394942920548], 
-    Point3DBox[{96., 640., 18.52985}]}, 
-   {RGBColor[0.2515686239998825, 0.4038532965843962, 0.8114787782270935], 
-    Point3DBox[{112., 640., 22.195309}]}, 
-   {RGBColor[0.2517451721208532, 0.4048578795817824, 0.8113702077806839], 
-    Point3DBox[{128., 640., 22.23307}]}, 
-   {RGBColor[0.2658052118158545, 0.4848614318286949, 0.8027238128044685], 
-    Point3DBox[{144., 640., 25.240302}]}, 
-   {RGBColor[0.2827402888265914, 0.5279669013776661, 0.7762788934465912], 
-    Point3DBox[{160., 640., 27.276703}]}, 
-   {RGBColor[0.30480769460775686`, 0.5828129745294328, 0.7414214084697988], 
-    Point3DBox[{176., 640., 29.890864}]}, 
-   {RGBColor[0.3083025322671193, 0.5886410330389014, 0.7355606855579944], 
-    Point3DBox[{192., 640., 30.228466}]}, 
-   {RGBColor[0.35572332813900587`, 0.6496403024341193, 0.6538847288991233], 
-    Point3DBox[{208., 640., 34.325956}]}, 
-   {RGBColor[0.33682058316063407`, 0.6253249443292084, 0.6864421702326309], 
-    Point3DBox[{224., 640., 32.692626}]}, 
-   {RGBColor[0.3918228700127391, 0.6765858631078565, 0.5980776065841192], 
-    Point3DBox[{240., 640., 36.867304}]}, 
-   {RGBColor[0.3917508369914166, 0.676537998254583, 0.5981870352552903], 
-    Point3DBox[{256., 640., 36.862408}]}, 
-   {RGBColor[0.34491107632168577`, 0.1157193223240163, 0.6354520124124134], 
-    Point3DBox[{16., 768., 10.169453}]}, 
-   {RGBColor[0.2559538252063425, 0.21604808128033282`, 0.7600845886747405], 
-    Point3DBox[{32., 768., 15.470795}]}, 
-   {RGBColor[0.24804269444637814`, 0.28026188316679473`, 0.7881090938993052], 
-    Point3DBox[{48., 768., 17.783445}]}, 
-   {RGBColor[0.24780826007837786`, 0.2850526947641243, 0.7897640989773722], 
-    Point3DBox[{64., 768., 17.949695}]}, 
-   {RGBColor[0.26292301850642535`, 0.46846135700539315`, 0.8044962531596682], 
-    Point3DBox[{80., 768., 24.623844}]}, 
-   {RGBColor[0.2584826095456896, 0.44319482163322177`, 0.8072269374652109], 
-    Point3DBox[{96., 768., 23.674107}]}, 
-   {RGBColor[0.293166808228196, 0.5538808511862475, 0.7598092527916908], 
-    Point3DBox[{112., 768., 28.511855}]}, 
-   {RGBColor[0.36390571931268656`, 0.6580353386742268, 0.6404878324486449], 
-    Point3DBox[{144., 768., 34.969808}]}, 
-   {RGBColor[0.35752016116270413`, 0.6519516407331835, 0.6507899251644224], 
-    Point3DBox[{160., 768., 34.481215}]}, 
-   {RGBColor[0.42522196020989217`, 0.6987790534308977, 0.5473395146438029], 
-    Point3DBox[{176., 768., 39.137401}]}, 
-   {RGBColor[0.43397821526856073`, 0.703238263521433, 0.5353897603572346], 
-    Point3DBox[{192., 768., 39.684743}]}, 
-   {RGBColor[0.5285779889687512, 0.7321399134685022, 0.4274741744975204], 
-    Point3DBox[{208., 768., 44.924366}]}, 
-   {RGBColor[0.5321269347426261, 0.7326595598147033, 0.4243824331476841], 
-    Point3DBox[{224., 768., 45.101917}]}, 
-   {RGBColor[0.6559867349600851, 0.7431586401953031, 0.3290957915218334], 
-    Point3DBox[{240., 768., 51.220235}]}, 
-   {RGBColor[0.6411663726486025, 0.7433301471554215, 0.33813848458056406`], 
-    Point3DBox[{256., 768., 50.502789}]}, 
-   {RGBColor[0.30799248621804165`, 0.12306127678143945`, 0.6697914913020743], 
-    Point3DBox[{16., 896., 11.404398}]}, 
-   {RGBColor[0.24775031354313434`, 0.2862368681233367, 0.7901731764129993], 
-    Point3DBox[{32., 896., 17.990788}]}, 
-   {RGBColor[0.2559123595277825, 0.428569746878393, 0.8088075444424693], 
-    Point3DBox[{48., 896., 23.124369}]}, 
-   {RGBColor[0.24625960819583803`, 0.37364426926496686`, 0.8147436230335457], 
-    Point3DBox[{64., 896., 21.05979}]}, 
-   {RGBColor[0.29996658629750333`, 0.5707809403541059, 0.749068381651382], 
-    Point3DBox[{80., 896., 29.317374}]}, 
-   {RGBColor[0.2959938199765479, 0.5609070732391972, 0.7553437292714091], 
-    Point3DBox[{96., 896., 28.84675}]}, 
-   {RGBColor[0.398104028828525, 0.6807595981474974, 0.5885356097331319], 
-    Point3DBox[{112., 896., 37.294227}]}, 
-   {RGBColor[0.4035055491069676, 0.6843488266823352, 0.5803299121860632], 
-    Point3DBox[{128., 896., 37.661362}]}, 
-   {RGBColor[0.48455655642077894`, 0.7202264132609953, 0.4750897264467845], 
-    Point3DBox[{160., 896., 42.53786}]}, 
-   {RGBColor[0.6383980717673008, 0.7433621830030522, 0.33982757251496837`], 
-    Point3DBox[{176., 896., 50.368777}]}, 
-   {RGBColor[0.6209503933633033, 0.7435640942803409, 0.3504733311731459], 
-    Point3DBox[{192., 896., 49.524144}]}, 
-   {RGBColor[0.7614075633870684, 0.7290935655832799, 0.275023639729939], 
-    Point3DBox[{208., 896., 56.563709}]}, 
-   {RGBColor[0.7548117275611763, 0.7306729083373139, 0.2778486685408455], 
-    Point3DBox[{224., 896., 56.216313}]}, 
-   {RGBColor[0.8609544306352772, 0.6726396577959237, 0.2374638944453547], 
-    Point3DBox[{240., 896., 62.848848}]}, 
-   {RGBColor[0.8713974981845257, 0.6522789159021353, 0.23235399934268638`], 
-    Point3DBox[{256., 896., 64.014991}]}, 
-   {RGBColor[0.277561799689813, 0.1774372396512634, 0.7225922530509731], 
-    Point3DBox[{16., 1024., 13.782308}]}, 
-   {RGBColor[0.2445107675988076, 0.3524389971564972, 0.8130429673665405], 
-    Point3DBox[{32., 1024., 20.288124}]}, 
-   {RGBColor[0.29868891660944125`, 0.5676054350015439, 0.7510865777365303], 
-    Point3DBox[{48., 1024., 29.166018}]}, 
-   {RGBColor[0.2736889889354229, 0.5054709061133155, 0.7905762491532655], 
-    Point3DBox[{64., 1024., 26.204463}]}, 
-   {RGBColor[0.3744841716198805, 0.6650645602485553, 0.6244176196799627], 
-    Point3DBox[{80., 1024., 35.688813}]}, 
-   {RGBColor[0.36046644930814564`, 0.6557415692022304, 0.6457153392481136], 
-    Point3DBox[{96., 1024., 34.735795}]}, 
-   {RGBColor[0.568499276468691, 0.7379852975647324, 0.3926958760487646], 
-    Point3DBox[{112., 1024., 46.921597}]}, 
-   {RGBColor[0.5242939528277142, 0.7315126331803468, 0.4312063058191484], 
-    Point3DBox[{128., 1024., 44.710039}]}, 
-   {RGBColor[0.7057327138377814, 0.7424246539454908, 0.2988694506584346], 
-    Point3DBox[{144., 1024., 53.631371}]}, 
-   {RGBColor[0.716028886546123, 0.7399592824307286, 0.2944595494251515], 
-    Point3DBox[{160., 1024., 54.17366}]}, 
-   {RGBColor[0.8665065992369396, 0.6637484404060408, 0.2349652088442748], 
-    Point3DBox[{176., 1024., 63.400146}]}, 
-   {RGBColor[0.8573690216461844, 0.6752592944522962, 0.23872543975400334`], 
-    Point3DBox[{192., 1024., 62.603742}]}, 
-   {RGBColor[0.9027862705515556, 0.4586398511068243, 0.19290401626506018`], 
-    Point3DBox[{208., 1024., 72.281529}]}, 
-   {RGBColor[0.9028334548251156, 0.4538370298175977, 0.19198909423746738`], 
-    Point3DBox[{224., 1024., 72.45632}]}, 
-   {RGBColor[0.8610220821942113, 0.1597252861888392, 0.13713375329923233`], 
-    Point3DBox[{240., 1024., 81.049162}]}, 
-   {RGBColor[0.857359, 0.131106, 0.132128], 
-    Point3DBox[{256., 1024., 81.881504}]}},
-  Axes->True,
-  AxesLabel->{
-    FormBox["\" N\"", TraditionalForm], 
-    FormBox["\" L\"", TraditionalForm], 
-    FormBox["\"Time (ms)\"", TraditionalForm]},
-  BoxRatios->{1, 1, 0.4},
-  FaceGridsStyle->Automatic,
-  ImageSize->{576., 258.2064834973452},
-  PlotRange->{{16., 256.}, {128., 1024.}, Automatic},
-  PlotRangePadding->{{
-     Scaled[0.02], 
-     Scaled[0.02]}, {
-     Scaled[0.02], 
-     Scaled[0.02]}, {Automatic, Automatic}},
-  Ticks->{Automatic, Automatic, Automatic},
-  ViewPoint->{2.9644788572844165`, -1.6313644181273907`, 
-   0.022698898245540614`},
-  ViewVertical->{0.509636421171331, -0.28858976711325107`, 
-   2.0263678474878346`}]], "Output",
- CellChangeTimes->{{3.704169450723364*^9, 3.7041694618548813`*^9}, {
-   3.704169604238801*^9, 3.704169681454464*^9}, 
-   3.704169715120071*^9},ImageCache->GraphicsData["CompressedBitmap", "\<\
-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\
-\>"]]
-}, Open  ]],
-
-Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.704167476811118*^9, 3.704167477190763*^9}, 
-   3.7041694469053497`*^9}]
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.7040937313627996`*^9, 3.7040937644407253`*^9}, {
+   3.704093812532691*^9, 3.704093817443295*^9}, {3.70409388980466*^9, 
+   3.704093941650062*^9}, {3.704093972517931*^9, 3.704094014923726*^9}, {
+   3.704096801489401*^9, 3.704096811089244*^9}, 3.704096873268471*^9, {
+   3.704096907077704*^9, 3.7040969301554527`*^9}, {3.704099968574853*^9, 
+   3.704099986640521*^9}, {3.704100044204628*^9, 3.704100045471929*^9}, {
+   3.7041002797277193`*^9, 3.70410029740341*^9}, {3.704100708117589*^9, 
+   3.704100722932358*^9}, {3.704107519636301*^9, 3.704107527652237*^9}, {
+   3.7041112900312033`*^9, 3.704111291093762*^9}, {3.704111413881568*^9, 
+   3.7041114180900183`*^9}, {3.704111482782483*^9, 3.704111497747641*^9}, {
+   3.7041115352367268`*^9, 3.704111545709902*^9}, {3.704111622723453*^9, 
+   3.704111707634001*^9}, {3.7041118004500523`*^9, 3.7041118022410393`*^9}, {
+   3.7041119088134003`*^9, 3.70411203183377*^9}, {3.704112078721723*^9, 
+   3.7041120833853273`*^9}, 3.704167512002961*^9, 3.704167689198469*^9, {
+   3.704167740392062*^9, 3.704167766489398*^9}, {3.70416786797936*^9, 
+   3.704167908369179*^9}, {3.704167960093608*^9, 3.704167960517441*^9}, {
+   3.704168000531659*^9, 3.7041680292375402`*^9}, {3.7041681837949743`*^9, 
+   3.70416823382716*^9}, {3.704168325841214*^9, 3.704168357951754*^9}, {
+   3.704168391048963*^9, 3.704168587333865*^9}, {3.704168626581089*^9, 
+   3.704168641031578*^9}, {3.704168697223155*^9, 3.704168731571967*^9}, {
+   3.704168833435392*^9, 3.7041688742787447`*^9}, {3.704168951460794*^9, 
+   3.704169084348394*^9}, {3.704169833983968*^9, 3.7041699015042467`*^9}, {
+   3.704169934790036*^9, 3.704169937320312*^9}, {3.704170147539112*^9, 
+   3.704170173953722*^9}, {3.7041703117398453`*^9, 3.704170490299884*^9}, 
+   3.7041706245429373`*^9, {3.704170681043797*^9, 3.704170708275434*^9}}]
 },
 WindowSize->{1280, 656},
-WindowMargins->{{8, Automatic}, {-24, Automatic}},
+WindowMargins->{{-12, Automatic}, {-2, Automatic}},
 FrontEndVersion->"11.0 for Linux ARM (32-bit) (January 17, 2017)",
 StyleDefinitions->"Default.nb"
 ]
@@ -569,16 +1422,11 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[582, 22, 4266, 89, 350, "Input"],
-Cell[4851, 113, 457, 9, 23, "Message"],
-Cell[5311, 124, 2104, 53, 186, "Output"]
+Cell[582, 22, 4995, 100, 398, "Input"],
+Cell[5580, 124, 71354, 1249, 249, "Output"]
 }, Open  ]],
-Cell[CellGroupData[{
-Cell[7452, 182, 763, 10, 32, "Input"],
-Cell[8218, 194, 20532, 353, 273, 14366, 251, "CachedBoxData", "BoxData", \
-"Output"]
-}, Open  ]],
-Cell[28765, 550, 120, 2, 32, "Input"]
+Cell[76949, 1376, 85, 1, 32, "Input"],
+Cell[77037, 1379, 1923, 26, 77, "Input"]
 }
 ]
 *)
