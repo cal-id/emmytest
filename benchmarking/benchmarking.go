@@ -41,11 +41,11 @@ func main() {
 	flag.Parse()
 
 	if N%8 != 0 || L%8 != 0 {
-		log.Fatalf("N and L must be multiples of 8.")
+		log.Fatal("N and L must be multiples of 8.")
 	}
 
 	if N >= L {
-		log.Fatalf("L must be greater than N.")
+		log.Fatal("L must be greater than N.")
 	}
 
 	protocolTypeFlagMap := map[string]common.ProtocolType{
@@ -73,7 +73,7 @@ func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
 	// Generate one of a specific length
 	dlog, err := generate_dlog(N, L)
 	if err != nil {
-		log.Fatalf("There was an error: ", err)
+		log.Fatal("There was an error: ", err)
 	}
 	log.Println("Q:", (*dlog).OrderOfSubgroup,
 		"P:", (*dlog).P,
@@ -87,7 +87,7 @@ func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
 	start := time.Now()
 	err = runClient(protocolType, dlog)
 	if err != nil {
-		log.Fatalf("There was an error: ", err)
+		log.Fatal("There was an error: ", err)
 	}
 	elapsed := time.Since(start)
 	log.Println("Proof took: ", elapsed)
