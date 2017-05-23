@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"crypto/dsa"
@@ -15,13 +15,13 @@ import (
  * see here for license https://golang.org/src/crypto/dsa/dsa.go?s=1669:1756#L47
  */
 
-/*
- * Takes N = number of bits in prime q
- * Takes L = number of bits in p
- * Both L and N must be divisible by 8
- * Returns pointer to dlog
- */
-func generateDlog(N int, L int) (*dlog.ZpDLog, error) {
+// GenerateDlog creates a random dlog according to some
+// parameters
+// Takes N = number of bits in prime q
+// Takes L = number of bits in p
+// Both L and N must be divisible by 8
+// Returns pointer to dlog
+func GenerateDlog(N int, L int) (*dlog.ZpDLog, error) {
 	dlog := dlog.ZpDLog{}
 	var generatedParameters dsa.Parameters
 	err := GenerateParameters(&generatedParameters, rand.Reader, N, L)

@@ -26,6 +26,7 @@ import (
 	"log"
 	"math/big"
 	"time"
+	"github.com/cal-id/emmytest/benchmarking/utils"
 )
 
 /*
@@ -68,7 +69,7 @@ func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
 	// Instead of loading the standard dlog from the config file using:
 	// dlog := config.LoadPseudonymsysDLog()
 	// Generate one of a specific length
-	dlog, err := generateDlog(N, L)
+	dlog, err := utils.GenerateDlog(N, L)
 	if err != nil {
 		log.Fatal("There was an error: ", err)
 	}
