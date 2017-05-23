@@ -12,7 +12,6 @@ for L in $(seq 128 128 1024); do
     for N in $(seq 16 16 256); do
         if [ $L -gt $N ]; then
             benchmarking -N $N -L $L
-            sleep 2 # Allow GRPC to free socket
         fi
     done
 done

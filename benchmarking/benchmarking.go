@@ -83,18 +83,32 @@ func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
 	go runServer(protocolType, dlog, publishWhenServerRunning)
 	<-publishWhenServerRunning // wait for the server to start
 
-	// Run the client which runs the proof
-	start := time.Now()
-	err = runClient(protocolType, dlog)
+	// Even with the 'publishWhenServerRunning' channel,
+	// there is occasionally an error here because the socket
+	// isn't yet free.
+	// Try for this long before giving up and raising an error.
+	const timeout time.Duration = time.Second * 60
+	startedTryingToRunClient := time.Now()
+	// Keep trying to connect the client until the timeout expires.
+	for time.Since(startedTryingToRunClient) < timeout {
+		start := time.Now()                 // Start the benchmark timer
+		err = runClient(protocolType, dlog) // Run the client which runs the proof
+		elapsed := time.Since(start)        // Record the benchmark time
+		if err == nil {
+			// If there is no error then we are done, print the results.
+			// Otherwise, keep trying until the timeout expires.
+			log.Println("Proof took: ", elapsed)
+			// Print to standard output, this can be piped into a csv file
+			fmt.Printf("%v, %v, %v, %v, %v, %v, %v\n",
+				protocolType, N, L, elapsed.Nanoseconds(),
+				(*dlog).OrderOfSubgroup, (*dlog).P, (*dlog).G)
+			break
+		}
+	}
+
 	if err != nil {
 		log.Fatal("There was an error: ", err)
 	}
-	elapsed := time.Since(start)
-	log.Println("Proof took: ", elapsed)
-	// Print to standard output, this can be piped into a csv file
-	fmt.Printf("%v, %v, %v, %v, %v, %v, %v\n",
-		protocolType, N, L, elapsed.Nanoseconds(),
-		(*dlog).OrderOfSubgroup, (*dlog).P, (*dlog).G)
 }
 
 /*
