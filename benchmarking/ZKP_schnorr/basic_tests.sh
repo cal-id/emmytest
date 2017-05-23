@@ -11,7 +11,7 @@ echo "Protocol, N, L, Time (ns), Q, P, G"
 for L in $(seq 128 128 1024); do
     for N in $(seq 16 16 256); do
         if [ $L -gt $N ]; then
-            benchmarking -N $N -L $L
+            ZKP_schnorr -N $N -L $L
         fi
     done
 done
