@@ -18,7 +18,6 @@ package main
  */
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"github.com/xlab-si/emmy/common"
@@ -62,8 +61,6 @@ func main() {
  * Runs the server and then the client with a given key size (N, L)
  */
 func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
-	log.Println("Starting up, protocol type: ", protocolType,
-		"N: ", N, "L: ", L)
 
 	// Create a channel to be published on after the server is running
 	publishWhenServerRunning := make(chan bool)
@@ -75,9 +72,6 @@ func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
 	if err != nil {
 		log.Fatal("There was an error: ", err)
 	}
-	log.Println("Q:", (*dlog).OrderOfSubgroup,
-		"P:", (*dlog).P,
-		"G:", (*dlog).G)
 
 	// Start the server running in the background
 	go runServer(protocolType, dlog, publishWhenServerRunning)
@@ -97,7 +91,6 @@ func runWithProtocolType(protocolType common.ProtocolType, N int, L int) {
 		if err == nil {
 			// If there is no error then we are done, print the results.
 			// Otherwise, keep trying until the timeout expires.
-			log.Println("Proof took: ", elapsed)
 			// Print to standard output, this can be piped into a csv file
 			fmt.Printf("%v, %v, %v, %v, %v, %v, %v\n",
 				protocolType, N, L, elapsed.Nanoseconds(),
@@ -129,9 +122,8 @@ func runClient(protocolType common.ProtocolType, dlog *emmyDlog.ZpDLog) error {
 		return err
 	}
 	if isProved != true {
-		return errors.New("knowledge NOT proved")
+		log.Fatalf("knowledge NOT proved")
 	}
-	log.Println("knowledge proved")
 	return nil
 }
 
