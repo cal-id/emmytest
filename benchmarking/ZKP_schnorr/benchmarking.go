@@ -13,7 +13,7 @@ package main
  *
  * Usage:
  *      assuming that $GOPATH/bin is in $PATH
- *           benchmarking [-N n] [-L l] [-prot p] >> csvOutputForTests.csv
+ *           ZKP_schnorr [-N n] [-L l] [-prot p] >> csvOutputForTests.csv
  *
  */
 
