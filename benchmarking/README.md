@@ -18,7 +18,7 @@ Within each container directory:
     - These are compiled and added to `$PATH` in the 'Installation' section below.
 - `basic_test.sh` is a bash script that iterates over all key sizes, executing the above protocol and combining the results into 'csv' in stdout.
 - `outputs_and_analysis/basic_output[1,2,3].csv` is the output from running `./basic_test.sh`. There are three because three repeats were done for each test.
-- `outputs_and_analysis/analysis.[nb,cdf,pdf]` is a mathematica notebook plotting a graph for each repeat of the results.
+- `outputs_and_analysis/analysis.[nb,cdf,pdf]` is a mathematica notebook plotting a graph for each repeat of the results from `basic_output[1,2,3].csv`
 
 ## Specific Setup
 
