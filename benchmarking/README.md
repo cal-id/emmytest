@@ -12,10 +12,10 @@ There is also an additional directory (`utils/`) which contains a go library to 
 
 Within each container directory:
 - `benchmarking.go` is a go script that is compiled into an executable program that will run the given protocol.
-    - e.g. `ZKP_schnorr -N 16 -L 128` records the time for a single run of the ZKP_schnorr protocol with key size (N=16, L=128)
+    - e.g. `$ ZKP_schnorr -N 16 -L 128` records the time for a single run of the ZKP_schnorr protocol with key size (N=16, L=128)
     - It takes cli input parameters including key size.
     - Each execution will return a line of 'csv' output with the input parameters and the time it took to run.
-    - These are compiled and added to $PATH in the 'Installation' section below.
+    - These are compiled and added to `$PATH` in the 'Installation' section below.
 - `basic_test.sh` is a bash script that iterates over all key sizes, executing the above protocol and combining the results into 'csv' in stdout.
 - `outputs_and_analysis/basic_output[1,2,3].csv` is the output from running `./basic_test.sh`. There are three because three repeats were done for each test.
 - `outputs_and_analysis/analysis.[nb,cdf,pdf]` is a mathematica notebook plotting a graph for each repeat of the results.
@@ -97,9 +97,9 @@ There is a go crypto library that can be used to generate the DSA groups `crypto
 This is an example of how the dlog_equality results were created. The other results were created in the same way.
 
 ```bash
-dlog_equality/basic_tests.sh > dlog_equality/outputs_and_analysis/basic_output1.csv
-dlog_equality/basic_tests.sh > dlog_equality/outputs_and_analysis/basic_output2.csv
-dlog_equality/basic_tests.sh > dlog_equality/outputs_and_analysis/basic_output3.csv
+$ dlog_equality/basic_tests.sh > dlog_equality/outputs_and_analysis/basic_output1.csv
+$ dlog_equality/basic_tests.sh > dlog_equality/outputs_and_analysis/basic_output2.csv
+$ dlog_equality/basic_tests.sh > dlog_equality/outputs_and_analysis/basic_output3.csv
 ```
 
 ### Different schnorr protocols
@@ -108,4 +108,4 @@ Emmy offers the option to run the schnorr protocol with these options:
 - "ZKP":   common.ZKP
 - "ZKPOK": common.ZKPOK
 
-Each of the option adds an additional step to the previous. These results just record the timings for the default (and most complex) ZKPOK. To obtain results for the other options, specify them with the `-prot` flag eg: `ZKP_schnorr -prot sigma -N 256 -L 1024`.
+Each of the option adds an additional step to the previous. These results just record the timings for the default (and most complex) ZKPOK. To obtain results for the other options, specify them with the `-prot` flag eg: `$ ZKP_schnorr -prot sigma -N 256 -L 1024`.
